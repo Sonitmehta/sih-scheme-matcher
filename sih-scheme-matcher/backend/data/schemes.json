@@ -1,0 +1,818 @@
+[
+  {
+    "scheme_id": "stand_up_india",
+    "name": "Stand-Up India Scheme",
+    "issuing_body": "Department of Financial Services, Govt. of India",
+    "sector": ["Manufacturing", "Services", "Trading"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["SC", "ST", "Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 1000000,
+    "funding_max": 10000000,
+    "benefit_description": "Bank loans between ₹10 lakh and ₹1 crore for greenfield enterprises in manufacturing, services or trading sector.",
+    "eligibility_text_raw": "SC/ST or women entrepreneurs above 18 years of age setting up a greenfield enterprise. At least one SC/ST or woman borrower per bank branch.",
+    "plain_summary_what": {
+      "en": "A bank loan of ₹10 lakh–₹1 crore to start your very first new business.",
+      "hi": "₹10 लाख से ₹1 करोड़ तक का बैंक ऋण, पहला व्यवसाय शुरू करने के लिए।",
+      "mr": "₹10 लाख ते ₹1 कोटी पर्यंत बँक कर्ज, पहला व्यवसाय सुरू करण्यासाठी."
+    },
+    "plain_summary_need": {
+      "en": "You must be SC/ST or a woman, aged 18+, starting a brand-new (greenfield) business.",
+      "hi": "आप SC/ST या महिला होनी चाहिए, 18+ वर्ष, और नया व्यवसाय शुरू करना चाहिए।",
+      "mr": "तुम्ही SC/ST किंवा महिला असणे आवश्यक आहे, वय 18+, आणि नवीन व्यवसाय सुरू करत असणे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply at any scheduled commercial bank branch or on the Stand-Up India portal.",
+      "hi": "किसी भी अनुसूचित वाणिज्यिक बैंक शाखा या Stand-Up India पोर्टल पर आवेदन करें।",
+      "mr": "कोणत्याही अनुसूचित व्यावसायिक बँक शाखेत किंवा Stand-Up India पोर्टलवर अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Caste Certificate (SC/ST)", "Business Plan", "Address Proof", "Bank Passbook", "Passport-size Photo"],
+    "official_link": "https://www.standupmitra.in",
+    "tags": ["loan", "bank", "greenfield", "manufacturing", "women", "SC", "ST", "entrepreneur"]
+  },
+  {
+    "scheme_id": "pm_mudra_shishu",
+    "name": "PM Mudra Yojana — Shishu",
+    "issuing_body": "Micro Units Development & Refinance Agency (MUDRA), Govt. of India",
+    "sector": ["Manufacturing", "Services", "Trading", "Agriculture-allied"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 50000,
+    "benefit_description": "Loans up to ₹50,000 for micro enterprises at the initial stage.",
+    "eligibility_text_raw": "Any Indian citizen with a viable business plan for a non-farm micro enterprise. No collateral required.",
+    "plain_summary_what": {
+      "en": "A loan up to ₹50,000 to start or grow a very small business. No collateral needed.",
+      "hi": "₹50,000 तक का ऋण, छोटा व्यवसाय शुरू करने या बढ़ाने के लिए। कोई ज़मानत नहीं चाहिए।",
+      "mr": "₹50,000 पर्यंत कर्ज, छोटा व्यवसाय सुरू करण्यासाठी. कोणतीही तारण नाही."
+    },
+    "plain_summary_need": {
+      "en": "Any Indian citizen 18+ with a micro business idea. No minimum income needed.",
+      "hi": "कोई भी 18+ भारतीय नागरिक जिसके पास सूक्ष्म व्यवसाय का विचार हो।",
+      "mr": "18+ वर्षाचा कोणताही भारतीय नागरिक ज्याच्याकडे सूक्ष्म व्यवसायाची कल्पना आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Visit any bank, MFI, or NBFC with a simple business plan.",
+      "hi": "साधे व्यवसाय योजना के साथ किसी भी बैंक, MFI, या NBFC में जाएं।",
+      "mr": "साध्या व्यवसाय योजनेसह कोणत्याही बँक, MFI किंवा NBFC ला भेट द्या."
+    },
+    "required_documents": ["Aadhaar Card", "PAN Card (if available)", "Business Address Proof", "Passport Photo"],
+    "official_link": "https://www.mudra.org.in",
+    "tags": ["mudra", "loan", "micro", "no collateral", "small business", "startup", "everyone eligible"]
+  },
+  {
+    "scheme_id": "pm_mudra_kishor",
+    "name": "PM Mudra Yojana — Kishor",
+    "issuing_body": "Micro Units Development & Refinance Agency (MUDRA), Govt. of India",
+    "sector": ["Manufacturing", "Services", "Trading", "Agriculture-allied"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["early", "existing"],
+    "funding_min": 50001,
+    "funding_max": 500000,
+    "benefit_description": "Loans from ₹50,001 to ₹5 lakh for growing micro enterprises.",
+    "eligibility_text_raw": "Any Indian citizen with an existing micro business needing growth capital. No collateral required.",
+    "plain_summary_what": {
+      "en": "A loan of ₹50,000–₹5 lakh to expand your existing small business.",
+      "hi": "₹50,000 से ₹5 लाख का ऋण, मौजूदा छोटे व्यवसाय को बढ़ाने के लिए।",
+      "mr": "₹50,000 ते ₹5 लाख कर्ज, विद्यमान लहान व्यवसाय वाढवण्यासाठी."
+    },
+    "plain_summary_need": {
+      "en": "You should have an existing small business and need funds to grow it.",
+      "hi": "आपके पास मौजूदा छोटा व्यवसाय होना चाहिए।",
+      "mr": "तुमच्याकडे विद्यमान लहान व्यवसाय असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply at any bank or NBFC with business proof and 6-month bank statement.",
+      "hi": "किसी बैंक या NBFC में व्यवसाय प्रमाण और 6 महीने के बैंक स्टेटमेंट के साथ।",
+      "mr": "कोणत्याही बँक किंवा NBFC मध्ये व्यवसाय पुरावा आणि 6 महिन्यांचे बँक स्टेटमेंटसह अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "PAN Card", "Business Proof", "Bank Statement (6 months)", "Passport Photo"],
+    "official_link": "https://www.mudra.org.in",
+    "tags": ["mudra", "loan", "micro", "expand", "grow", "working capital"]
+  },
+  {
+    "scheme_id": "pm_mudra_tarun",
+    "name": "PM Mudra Yojana — Tarun",
+    "issuing_body": "Micro Units Development & Refinance Agency (MUDRA), Govt. of India",
+    "sector": ["Manufacturing", "Services", "Trading"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["existing"],
+    "funding_min": 500001,
+    "funding_max": 1000000,
+    "benefit_description": "Loans from ₹5 lakh to ₹10 lakh for established micro enterprises.",
+    "eligibility_text_raw": "Any Indian citizen with an established business and good repayment track record.",
+    "plain_summary_what": {
+      "en": "A loan of ₹5 lakh–₹10 lakh to scale your established business.",
+      "hi": "₹5 लाख से ₹10 लाख का ऋण, स्थापित व्यवसाय को बढ़ाने के लिए।",
+      "mr": "₹5 लाख ते ₹10 लाख कर्ज, स्थापित व्यवसाय वाढवण्यासाठी."
+    },
+    "plain_summary_need": {
+      "en": "You need an established business with proof of operations and repayment history.",
+      "hi": "आपके पास स्थापित व्यवसाय होना चाहिए और अच्छा पुनर्भुगतान रिकॉर्ड होना चाहिए।",
+      "mr": "तुमच्याकडे स्थापित व्यवसाय आणि चांगला पुनर्भरण इतिहास असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply at your bank with 2 years of ITR and business financials.",
+      "hi": "अपने बैंक में 2 साल का ITR और व्यवसाय वित्तीय विवरण के साथ आवेदन करें।",
+      "mr": "2 वर्षांचा ITR आणि व्यवसाय आर्थिक विवरणासह तुमच्या बँकेत अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "PAN Card", "Business Registration", "ITR (2 years)", "Bank Statement (12 months)"],
+    "official_link": "https://www.mudra.org.in",
+    "tags": ["mudra", "loan", "scale", "established", "growth capital"]
+  },
+  {
+    "scheme_id": "pmegp",
+    "name": "Prime Minister Employment Generation Programme (PMEGP)",
+    "issuing_body": "Ministry of MSME, Govt. of India (implemented via KVIC/KVIB/DIC)",
+    "sector": ["Manufacturing", "Services", "Agro-processing", "Handicrafts"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD", "Ex-servicemen"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 5000000,
+    "benefit_description": "Subsidy (15–35% of project cost) + bank loan for new manufacturing/service enterprises up to ₹50 lakh.",
+    "eligibility_text_raw": "Indian citizens 18+ with at least VIII standard pass for projects above ₹10 lakh. Higher subsidy (25–35%) for SC/ST/Women/PwD/Minorities in rural areas.",
+    "plain_summary_what": {
+      "en": "A government subsidy of 15–35% of your project cost + bank loan to set up a new business up to ₹50 lakh. SC/ST/Women/PwD get higher subsidy.",
+      "hi": "परियोजना लागत का 15-35% सरकारी सब्सिडी + बैंक ऋण, नया व्यवसाय स्थापित करने के लिए। SC/ST/महिलाओं/PwD को अधिक सब्सिडी।",
+      "mr": "प्रकल्प खर्चाच्या 15-35% सरकारी अनुदान + बँक कर्ज, नवीन व्यवसाय स्थापन करण्यासाठी."
+    },
+    "plain_summary_need": {
+      "en": "Must be 18+, passed Class 8, and starting a new (not existing) manufacturing/service unit.",
+      "hi": "18+ वर्ष, कम से कम 8वीं पास, और नई विनिर्माण/सेवा इकाई शुरू करना।",
+      "mr": "वय 18+, किमान 8वी उत्तीर्ण, आणि नवीन उत्पादन/सेवा युनिट सुरू करणे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply online on PMEGP portal (www.kviconline.gov.in/pmegp) or through your district KVIC/KVIB/DIC office.",
+      "hi": "PMEGP पोर्टल पर ऑनलाइन आवेदन करें या जिला KVIC/KVIB/DIC कार्यालय के माध्यम से।",
+      "mr": "PMEGP पोर्टलवर ऑनलाइन अर्ज करा किंवा जिल्हा KVIC/KVIB/DIC कार्यालयाद्वारे."
+    },
+    "required_documents": ["Aadhaar Card", "PAN Card", "Education Certificate (Class 8+)", "Caste Certificate (if applicable)", "Project Report", "Bank Account Details"],
+    "official_link": "https://www.kviconline.gov.in/pmegp",
+    "tags": ["subsidy", "grant", "manufacturing", "new business", "agro", "handicraft", "MSME", "KVIC"]
+  },
+  {
+    "scheme_id": "udyogini",
+    "name": "Udyogini Scheme",
+    "issuing_body": "Women Development Corporation / State Governments (various)",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Handicrafts", "Food processing"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["Women"],
+    "min_age": 18,
+    "max_age": 55,
+    "income_ceiling": 150000,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 300000,
+    "benefit_description": "Loans up to ₹3 lakh at subsidized rates for women entrepreneurs, with special focus on rural/poor women.",
+    "eligibility_text_raw": "Women between 18-55 years with annual family income below ₹1.5 lakh. SC/ST widows/disabled women get full subsidy. BPL women eligible for maximum benefit.",
+    "plain_summary_what": {
+      "en": "A loan up to ₹3 lakh at low interest rates for women to start a business. BPL/SC/ST widows may get free grant (no repayment needed).",
+      "hi": "महिलाओं के लिए ₹3 लाख तक का ऋण कम ब्याज दर पर। BPL/SC/ST विधवाओं को पूरा अनुदान मिल सकता है।",
+      "mr": "महिलांसाठी ₹3 लाख पर्यंत कर्ज कमी व्याजदरावर. BPL/SC/ST विधवांना पूर्ण अनुदान मिळू शकते."
+    },
+    "plain_summary_need": {
+      "en": "Must be a woman aged 18–55 with annual family income below ₹1.5 lakh.",
+      "hi": "महिला होनी चाहिए, उम्र 18-55, वार्षिक पारिवारिक आय ₹1.5 लाख से कम।",
+      "mr": "महिला असणे आवश्यक आहे, वय 18-55, वार्षिक कौटुंबिक उत्पन्न ₹1.5 लाखांपेक्षा कमी."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through your district Women Development Corporation office or nearest nationalized bank.",
+      "hi": "जिला महिला विकास निगम कार्यालय या नजदीकी राष्ट्रीयकृत बैंक के माध्यम से आवेदन करें।",
+      "mr": "जिल्हा महिला विकास महामंडळ कार्यालयाद्वारे किंवा जवळच्या राष्ट्रीयीकृत बँकेत अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Income Certificate (below ₹1.5 lakh)", "Caste Certificate (if SC/ST)", "BPL Card (if applicable)", "Business Proposal", "Passport Photo"],
+    "official_link": "https://wcd.nic.in",
+    "tags": ["women", "loan", "subsidy", "BPL", "rural women", "handicraft", "food processing", "low income"]
+  },
+  {
+    "scheme_id": "pm_vishwakarma",
+    "name": "PM Vishwakarma Yojana",
+    "issuing_body": "Ministry of MSME, Govt. of India",
+    "sector": ["Handicrafts", "Traditional crafts", "Manufacturing"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 300000,
+    "benefit_description": "₹15,000 toolkit grant + collateral-free loans (₹1 lakh then ₹2 lakh) + skill training + PM Vishwakarma certificate for traditional artisans and craftspeople.",
+    "eligibility_text_raw": "Traditional artisans and craftspeople from 18 families of crafts (blacksmith, goldsmith, potter, weaver, carpenter, etc.). Self-employed, not in government service.",
+    "plain_summary_what": {
+      "en": "Free toolkit worth ₹15,000 + skill training with ₹500/day stipend + collateral-free loan of ₹1–3 lakh for traditional craft/artisan workers.",
+      "hi": "₹15,000 का मुफ्त टूलकिट + ₹500/दिन वजीफे के साथ कौशल प्रशिक्षण + पारंपरिक कारीगरों के लिए ₹1–3 लाख का बिना ज़मानत ऋण।",
+      "mr": "₹15,000 चे मोफत टूलकिट + ₹500/दिन वेतनासह कौशल्य प्रशिक्षण + पारंपरिक कारागीरांसाठी ₹1–3 लाख तारण-मुक्त कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "You must be a traditional artisan (weaver, potter, blacksmith, carpenter, etc.), not in salaried government job.",
+      "hi": "आप पारंपरिक कारीगर होने चाहिए (बुनकर, कुम्हार, लोहार, बढ़ई आदि), सरकारी नौकरी में नहीं।",
+      "mr": "तुम्ही पारंपरिक कारागीर असणे आवश्यक आहे (विणकर, कुंभार, लोहार, सुतार इ.), सरकारी नोकरीत नसणे."
+    },
+    "plain_summary_apply": {
+      "en": "Register at pmvishwakarma.gov.in using Aadhaar-based biometric authentication at CSC center.",
+      "hi": "CSC केंद्र पर आधार-आधारित बायोमेट्रिक प्रमाणीकरण का उपयोग करके pmvishwakarma.gov.in पर पंजीकरण करें।",
+      "mr": "CSC केंद्रावर Aadhaar-आधारित बायोमेट्रिक प्रमाणीकरण वापरून pmvishwakarma.gov.in वर नोंदणी करा."
+    },
+    "required_documents": ["Aadhaar Card", "Mobile linked to Aadhaar", "Bank Account", "Self-declaration of craft"],
+    "official_link": "https://pmvishwakarma.gov.in",
+    "tags": ["artisan", "craftsman", "weaver", "potter", "blacksmith", "carpenter", "toolkit", "traditional craft", "skill training"]
+  },
+  {
+    "scheme_id": "nsfdc",
+    "name": "National SC Finance & Development Corporation (NSFDC) Schemes",
+    "issuing_body": "NSFDC, Ministry of Social Justice & Empowerment, Govt. of India",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Transport"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["SC"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": 300000,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 3000000,
+    "benefit_description": "Concessional loans at 5–6% interest for SC entrepreneurs. Up to ₹30 lakh for income-generating activities.",
+    "eligibility_text_raw": "Scheduled Caste individuals with annual income below ₹3 lakh (urban) or ₹2 lakh (rural). BPL families get priority.",
+    "plain_summary_what": {
+      "en": "Low-interest loans (5–6% p.a.) up to ₹30 lakh for SC entrepreneurs to start or grow any income-earning business.",
+      "hi": "SC उद्यमियों के लिए कम ब्याज दर (5-6%) पर ₹30 लाख तक का ऋण।",
+      "mr": "SC उद्योजकांसाठी कमी व्याजदरावर (5-6%) ₹30 लाख पर्यंत कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "Must be SC category with annual income below ₹3 lakh (urban) / ₹2 lakh (rural).",
+      "hi": "SC वर्ग होना चाहिए, वार्षिक आय ₹3 लाख (शहरी) / ₹2 लाख (ग्रामीण) से कम।",
+      "mr": "SC वर्गातील असणे आवश्यक आहे, वार्षिक उत्पन्न ₹3 लाख (शहरी) / ₹2 लाख (ग्रामीण) पेक्षा कमी."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through State Channelising Agencies (SCAs) in your state or NSFDC directly.",
+      "hi": "अपने राज्य में State Channelising Agencies (SCAs) के माध्यम से या NSFDC सीधे आवेदन करें।",
+      "mr": "तुमच्या राज्यातील State Channelising Agencies (SCAs) द्वारे किंवा NSFDC थेट अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Caste Certificate (SC)", "Income Certificate", "Bank Account", "Project Report"],
+    "official_link": "https://nsfdc.nic.in",
+    "tags": ["SC", "scheduled caste", "low interest loan", "concessional", "dalit entrepreneur"]
+  },
+  {
+    "scheme_id": "nbcfdc",
+    "name": "National Backward Classes Finance & Development Corporation (NBCFDC)",
+    "issuing_body": "NBCFDC, Ministry of Social Justice & Empowerment, Govt. of India",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Transport"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["OBC"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": 300000,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 2000000,
+    "benefit_description": "Concessional loans at 6% interest for OBC entrepreneurs up to ₹20 lakh.",
+    "eligibility_text_raw": "OBC individuals with annual income below ₹3 lakh. Loans provided through State Channelising Agencies.",
+    "plain_summary_what": {
+      "en": "Low-interest loans (6% p.a.) up to ₹20 lakh for OBC entrepreneurs to start or grow a business.",
+      "hi": "OBC उद्यमियों के लिए 6% ब्याज दर पर ₹20 लाख तक का ऋण।",
+      "mr": "OBC उद्योजकांसाठी 6% व्याजदरावर ₹20 लाख पर्यंत कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "Must be OBC category with annual family income below ₹3 lakh.",
+      "hi": "OBC वर्ग होना चाहिए, वार्षिक पारिवारिक आय ₹3 लाख से कम।",
+      "mr": "OBC वर्गातील असणे आवश्यक आहे, वार्षिक कौटुंबिक उत्पन्न ₹3 लाखांपेक्षा कमी."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through State Channelising Agencies (SCAs) or NBCFDC regional offices.",
+      "hi": "State Channelising Agencies (SCAs) या NBCFDC क्षेत्रीय कार्यालयों के माध्यम से आवेदन करें।",
+      "mr": "State Channelising Agencies (SCAs) किंवा NBCFDC प्रादेशिक कार्यालयांद्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "OBC Certificate", "Income Certificate", "Bank Account", "Business Plan"],
+    "official_link": "https://www.nbcfdc.gov.in",
+    "tags": ["OBC", "backward class", "low interest", "concessional", "loan"]
+  },
+  {
+    "scheme_id": "nhfdc",
+    "name": "National Handicapped Finance & Development Corporation (NHFDC)",
+    "issuing_body": "NHFDC, Ministry of Social Justice & Empowerment, Govt. of India",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Handicrafts"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 3000000,
+    "benefit_description": "Loans up to ₹30 lakh at 5% interest for persons with disabilities for self-employment.",
+    "eligibility_text_raw": "Persons with disabilities (40%+ disability) for setting up self-employment ventures. Lower interest rates and no upper income ceiling.",
+    "plain_summary_what": {
+      "en": "Low-interest loans (5% p.a.) up to ₹30 lakh for persons with disabilities (PwD) to start or grow any business.",
+      "hi": "दिव्यांगजनों के लिए 5% ब्याज दर पर ₹30 लाख तक का ऋण।",
+      "mr": "दिव्यांग व्यक्तींसाठी 5% व्याजदरावर ₹30 लाख पर्यंत कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "Must be a person with at least 40% disability, certified by a government medical authority.",
+      "hi": "कम से कम 40% विकलांगता वाले व्यक्ति, सरकारी चिकित्सा प्राधिकरण द्वारा प्रमाणित।",
+      "mr": "किमान 40% अपंगत्व असलेली व्यक्ती, सरकारी वैद्यकीय प्राधिकरणाने प्रमाणित."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through State Channelising Agencies or NHFDC directly.",
+      "hi": "State Channelising Agencies या NHFDC के माध्यम से आवेदन करें।",
+      "mr": "State Channelising Agencies किंवा NHFDC द्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Disability Certificate (40%+)", "Bank Account", "Project Report", "Passport Photo"],
+    "official_link": "https://www.nhfdc.nic.in",
+    "tags": ["PwD", "disability", "differently abled", "low interest", "self employment", "handicapped"]
+  },
+  {
+    "scheme_id": "nmdfc",
+    "name": "National Minorities Development & Finance Corporation (NMDFC)",
+    "issuing_body": "NMDFC, Ministry of Minority Affairs, Govt. of India",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Transport"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["Minority"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": 600000,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 3000000,
+    "benefit_description": "Concessional loans at 6% for minorities (Muslim, Christian, Sikh, Buddhist, Parsi, Jain) for self-employment and education.",
+    "eligibility_text_raw": "Members of minority communities (Muslim, Christian, Sikh, Buddhist, Parsi, Jain) with annual income below ₹6 lakh.",
+    "plain_summary_what": {
+      "en": "Low-interest loans (6% p.a.) up to ₹30 lakh for minority community entrepreneurs for any self-employment venture.",
+      "hi": "अल्पसंख्यक समुदाय उद्यमियों के लिए 6% ब्याज दर पर ₹30 लाख तक का ऋण।",
+      "mr": "अल्पसंख्यक समुदायातील उद्योजकांसाठी 6% व्याजदरावर ₹30 लाख पर्यंत कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "Must belong to minority community (Muslim, Christian, Sikh, Buddhist, Parsi, Jain) with family income below ₹6 lakh.",
+      "hi": "अल्पसंख्यक समुदाय (मुस्लिम, ईसाई, सिख, बौद्ध, पारसी, जैन) से होना चाहिए, आय ₹6 लाख से कम।",
+      "mr": "अल्पसंख्यक समुदायातील (मुस्लिम, ख्रिश्चन, शीख, बौद्ध, पारशी, जैन) असणे आवश्यक आहे, उत्पन्न ₹6 लाखांपेक्षा कमी."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through State Channelising Agencies (Waqf Board, Minority Finance Corporations) in your state.",
+      "hi": "अपने राज्य में State Channelising Agencies के माध्यम से आवेदन करें।",
+      "mr": "तुमच्या राज्यातील State Channelising Agencies द्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Minority Community Certificate", "Income Certificate", "Bank Account", "Project Proposal"],
+    "official_link": "https://www.nmdfc.org",
+    "tags": ["minority", "Muslim", "Christian", "Sikh", "Buddhist", "low interest", "concessional", "self employment"]
+  },
+  {
+    "scheme_id": "tread",
+    "name": "TREAD — Trade Related Entrepreneurship Assistance for Women",
+    "issuing_body": "Ministry of MSME, Govt. of India",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Handicrafts"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 3000000,
+    "benefit_description": "30% government grant of project cost + loan through NGOs for women. NGOs provide training, counseling, and hand-holding support.",
+    "eligibility_text_raw": "Women entrepreneurs who are economically poor and want to set up a business. Must apply through a registered NGO.",
+    "plain_summary_what": {
+      "en": "30% of your project cost as a free grant (no repayment), plus a loan — applied through a local NGO that also provides training and support.",
+      "hi": "परियोजना लागत का 30% मुफ्त अनुदान (वापसी नहीं), साथ में ऋण — स्थानीय NGO के माध्यम से, जो प्रशिक्षण और सहायता भी देती है।",
+      "mr": "प्रकल्प खर्चाच्या 30% मोफत अनुदान (परतफेड नाही), तसेच कर्ज — स्थानीय NGO द्वारे, जे प्रशिक्षण आणि सहाय्य देखील प्रदान करते."
+    },
+    "plain_summary_need": {
+      "en": "Must be an economically poor woman, connected to a local NGO that is registered with Ministry of MSME.",
+      "hi": "आर्थिक रूप से गरीब महिला होनी चाहिए, और MSME मंत्रालय के साथ पंजीकृत स्थानीय NGO से जुड़ी हो।",
+      "mr": "आर्थिकदृष्ट्या गरीब महिला असणे आवश्यक आहे, आणि MSME मंत्रालयाशी नोंदणीकृत स्थानीय NGO शी जोडलेली असणे."
+    },
+    "plain_summary_apply": {
+      "en": "Contact your local NGO partnered with MSME. The NGO handles the application on your behalf.",
+      "hi": "MSME के साथ भागीदार अपने स्थानीय NGO से संपर्क करें। NGO आपकी ओर से आवेदन संभालती है।",
+      "mr": "MSME शी भागीदार असलेल्या तुमच्या स्थानीय NGO शी संपर्क साधा."
+    },
+    "required_documents": ["Aadhaar Card", "Income Proof", "NGO Recommendation Letter", "Business Proposal"],
+    "official_link": "https://msme.gov.in",
+    "tags": ["women", "grant", "NGO", "training", "rural women", "handholding", "poor women"]
+  },
+  {
+    "scheme_id": "day_nrlm",
+    "name": "DAY-NRLM — Deendayal Antyodaya Yojana (Women SHG Loans)",
+    "issuing_body": "Ministry of Rural Development, Govt. of India",
+    "sector": ["Agriculture-allied", "Manufacturing", "Services", "Handicrafts"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 500000,
+    "benefit_description": "SHG members get loans up to ₹5 lakh at 7% interest (further subsidized). Government provides capacity building and market linkage.",
+    "eligibility_text_raw": "Rural poor women who are members of Self-Help Groups (SHGs) under NRLM. Priority to BPL, SC/ST women.",
+    "plain_summary_what": {
+      "en": "If you are part of a Women's Self-Help Group (SHG), you can get a loan up to ₹5 lakh at very low interest + business training + market connections.",
+      "hi": "यदि आप महिला स्वयं सहायता समूह (SHG) का हिस्सा हैं, तो ₹5 लाख तक का ऋण बहुत कम ब्याज पर + व्यवसाय प्रशिक्षण + बाजार संपर्क।",
+      "mr": "जर तुम्ही महिला स्वयंसहाय्यता बचत गटाच्या (SHG) सदस्य असाल, तर ₹5 लाख पर्यंत कर्ज अत्यंत कमी व्याजावर."
+    },
+    "plain_summary_need": {
+      "en": "Must be a rural woman and a member of an SHG registered under DAY-NRLM.",
+      "hi": "ग्रामीण महिला होनी चाहिए और DAY-NRLM के तहत पंजीकृत SHG की सदस्य।",
+      "mr": "ग्रामीण महिला असणे आवश्यक आहे आणि DAY-NRLM अंतर्गत नोंदणीकृत SHG ची सदस्य असणे."
+    },
+    "plain_summary_apply": {
+      "en": "Join or form an SHG in your village through your gram panchayat or existing NRLM worker.",
+      "hi": "अपने ग्राम पंचायत या NRLM कार्यकर्ता के माध्यम से अपने गाँव में SHG में शामिल हों या बनाएं।",
+      "mr": "तुमच्या ग्राम पंचायत किंवा NRLM कार्यकर्त्याद्वारे तुमच्या गावात SHG मध्ये सामील व्हा किंवा बना."
+    },
+    "required_documents": ["Aadhaar Card", "SHG Membership Proof", "Bank Account", "Ration Card"],
+    "official_link": "https://aajeevika.gov.in",
+    "tags": ["SHG", "self help group", "rural women", "BPL", "village", "collective", "loan", "capacity building"]
+  },
+  {
+    "scheme_id": "odop",
+    "name": "One District One Product (ODOP) Scheme",
+    "issuing_body": "Ministry of Commerce & Industry / State Governments",
+    "sector": ["Handicrafts", "Manufacturing", "Food processing", "Agriculture-allied"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 5000000,
+    "benefit_description": "Financial support, branding, market access, GI tag support and capacity building for artisans producing district's signature product.",
+    "eligibility_text_raw": "Artisans, craftsmen, or micro entrepreneurs in any district who produce or want to produce that district's designated ODOP product.",
+    "plain_summary_what": {
+      "en": "Government support including funding, branding (logo/GI tag), online market access (Amazon, Flipkart, GeM), and training for artisans making your district's specialty product.",
+      "hi": "सरकारी सहायता जिसमें फंडिंग, ब्रांडिंग, ऑनलाइन बाजार पहुंच और प्रशिक्षण शामिल है — आपके जिले के विशेषता उत्पाद के लिए।",
+      "mr": "सरकारी सहाय्य ज्यात निधी, ब्रँडिंग, ऑनलाइन बाजार प्रवेश आणि प्रशिक्षण समाविष्ट आहे — तुमच्या जिल्ह्याच्या वैशिष्ट्यपूर्ण उत्पादनासाठी."
+    },
+    "plain_summary_need": {
+      "en": "You must be an artisan/craftsperson making (or wanting to make) your district's ODOP product (e.g., Varanasi silk, Agra leather, Kolhapuri chappals, etc.)",
+      "hi": "आपको अपने जिले का ODOP उत्पाद बनाने वाले कारीगर होना चाहिए।",
+      "mr": "तुम्ही तुमच्या जिल्ह्याचे ODOP उत्पाद बनवणारे कारागीर असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through your District Industries Centre (DIC) or the ODOP portal.",
+      "hi": "जिला उद्योग केंद्र (DIC) या ODOP पोर्टल के माध्यम से आवेदन करें।",
+      "mr": "जिल्हा उद्योग केंद्र (DIC) किंवा ODOP पोर्टलद्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Business Registration / Udyam Certificate", "Craft Skill Proof", "Bank Account"],
+    "official_link": "https://www.india.gov.in/spotlight/one-district-one-product",
+    "tags": ["artisan", "handicraft", "GI tag", "district specialty", "market access", "branding", "craftsman", "textile", "pottery"]
+  },
+  {
+    "scheme_id": "gem_artisan",
+    "name": "Government e-Marketplace (GeM) — Artisan & SHG Seller Onboarding",
+    "issuing_body": "Ministry of Commerce & Industry, Govt. of India",
+    "sector": ["Handicrafts", "Manufacturing", "Food processing"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["early", "existing"],
+    "funding_min": 0,
+    "funding_max": 0,
+    "benefit_description": "Free registration on GeM portal to sell handicrafts, products to government buyers directly. No commission for artisans/SHGs.",
+    "eligibility_text_raw": "Artisans, weavers, SHG members, and micro entrepreneurs producing physical goods that can be sold to government departments and PSUs.",
+    "plain_summary_what": {
+      "en": "Sell your products directly to government offices and PSUs through GeM — no middlemen, no commission (for artisans/SHGs). Guaranteed government buyers!",
+      "hi": "GeM के माध्यम से सरकारी कार्यालयों और PSUs को सीधे अपने उत्पाद बेचें — कोई बिचौलिया नहीं, कोई कमीशन नहीं (कारीगरों/SHGs के लिए)।",
+      "mr": "GeM द्वारे सरकारी कार्यालये आणि PSU ला थेट तुमची उत्पादने विका — कोणताही मध्यस्थ नाही, कोणतेही कमिशन नाही (कारागीर/SHG साठी)."
+    },
+    "plain_summary_need": {
+      "en": "Must have a product to sell (any handicraft, textile, food item, etc.) and a GST/Udyam registration.",
+      "hi": "बेचने के लिए उत्पाद होना चाहिए (कोई भी हस्तशिल्प, वस्त्र, खाद्य पदार्थ, आदि) और GST/Udyam पंजीकरण।",
+      "mr": "विकण्यासाठी उत्पाद असणे आवश्यक आहे आणि GST/Udyam नोंदणी असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Register free at gem.gov.in as an artisan/SHG seller. Verification takes 3–5 days.",
+      "hi": "gem.gov.in पर कारीगर/SHG विक्रेता के रूप में मुफ्त पंजीकरण करें।",
+      "mr": "gem.gov.in वर कारागीर/SHG विक्रेता म्हणून मोफत नोंदणी करा."
+    },
+    "required_documents": ["Aadhaar Card", "PAN Card", "Bank Account", "Udyam Registration / GST Number"],
+    "official_link": "https://gem.gov.in",
+    "tags": ["sell online", "government market", "handicraft", "no middleman", "e-commerce", "SHG", "artisan", "market access"]
+  },
+  {
+    "scheme_id": "kvic_khadi",
+    "name": "KVIC Khadi & Village Industries Schemes",
+    "issuing_body": "Khadi & Village Industries Commission (KVIC), Ministry of MSME",
+    "sector": ["Handicrafts", "Food processing", "Manufacturing", "Agriculture-allied"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early", "existing"],
+    "funding_min": 0,
+    "funding_max": 2500000,
+    "benefit_description": "Subsidy + concessional loans for khadi, handloom, food processing, agarbatti, pottery, leather, and other village industries.",
+    "eligibility_text_raw": "Individuals and cooperatives engaged in or wanting to start khadi or village industry activities. Rural artisans get priority.",
+    "plain_summary_what": {
+      "en": "Financial help (subsidy + loans) to start or grow a traditional village industry — khadi weaving, pottery, food processing, agarbatti making, leather work, etc.",
+      "hi": "पारंपरिक ग्राम उद्योग शुरू करने या बढ़ाने के लिए वित्तीय सहायता — खादी बुनाई, कुम्हारी, खाद्य प्रसंस्करण, अगरबत्ती बनाना, चमड़ा काम।",
+      "mr": "पारंपरिक ग्राम उद्योग सुरू करण्यासाठी किंवा वाढवण्यासाठी आर्थिक मदत — खादी विणकाम, कुंभारकाम, अन्न प्रक्रिया, उदबत्ती निर्मिती, चामडेकाम."
+    },
+    "plain_summary_need": {
+      "en": "Must be involved in or want to start a khadi or village industry activity. Rural artisans and weavers get priority.",
+      "hi": "खादी या ग्राम उद्योग गतिविधि में शामिल होना चाहिए। ग्रामीण कारीगरों और बुनकरों को प्राथमिकता।",
+      "mr": "खादी किंवा ग्राम उद्योग क्रियाकलापात सहभागी असणे आवश्यक आहे. ग्रामीण कारागीर आणि विणकरांना प्राधान्य."
+    },
+    "plain_summary_apply": {
+      "en": "Contact your nearest KVIC district office or apply through the KVIC portal.",
+      "hi": "अपने नजदीकी KVIC जिला कार्यालय से संपर्क करें या KVIC पोर्टल के माध्यम से आवेदन करें।",
+      "mr": "तुमच्या जवळच्या KVIC जिल्हा कार्यालयाशी संपर्क साधा किंवा KVIC पोर्टलद्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Business Plan", "Bank Account", "Caste Certificate (if applicable)"],
+    "official_link": "https://www.kvic.gov.in",
+    "tags": ["khadi", "village industry", "weaver", "pottery", "agarbatti", "handloom", "rural", "traditional", "food processing"]
+  },
+  {
+    "scheme_id": "mahila_coir",
+    "name": "Mahila Coir Yojana",
+    "issuing_body": "Coir Board, Ministry of MSME, Govt. of India",
+    "sector": ["Manufacturing", "Handicrafts"],
+    "states_applicable": ["Kerala", "Karnataka", "Tamil Nadu", "Andhra Pradesh", "Goa", "Maharashtra", "Odisha", "West Bengal", "Assam"],
+    "eligible_categories": ["Women"],
+    "min_age": 18,
+    "max_age": 60,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 75000,
+    "benefit_description": "75% subsidy on motorized coir ratt (spinning wheel) — up to ₹7,500 subsidy. Provides training + equipment for women in coir industry.",
+    "eligibility_text_raw": "Women spinners in coir-producing states. Priority to rural women. Only one ratt per household.",
+    "plain_summary_what": {
+      "en": "A free coir-spinning machine (ratt) worth up to ₹10,000 with 75% government subsidy, plus free training for women in the coir (coconut fiber) business.",
+      "hi": "महिलाओं के लिए 75% सरकारी सब्सिडी के साथ मुफ्त कॉयर स्पिनिंग मशीन + मुफ्त प्रशिक्षण।",
+      "mr": "महिलांसाठी 75% सरकारी अनुदानासह मोफत कॉयर स्पिनिंग मशीन + मोफत प्रशिक्षण."
+    },
+    "plain_summary_need": {
+      "en": "Must be a woman in a coir-producing state (Kerala, Karnataka, TN, etc.) interested in coir spinning.",
+      "hi": "कॉयर उत्पादक राज्य (केरल, कर्नाटक, तमिलनाडु, आदि) में महिला होनी चाहिए।",
+      "mr": "कॉयर उत्पादक राज्यात (केरळ, कर्नाटक, तामिळनाडू, इ.) महिला असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through the nearest Coir Board regional office or Coir Development Centre.",
+      "hi": "नजदीकी Coir Board क्षेत्रीय कार्यालय या Coir Development Centre के माध्यम से आवेदन करें।",
+      "mr": "जवळच्या Coir Board प्रादेशिक कार्यालय किंवा Coir Development Centre द्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Address Proof (in coir state)", "Bank Account", "Income Proof"],
+    "official_link": "https://coirboard.gov.in",
+    "tags": ["coir", "coconut", "spinning", "women", "Kerala", "Karnataka", "weaving", "equipment subsidy"]
+  },
+  {
+    "scheme_id": "annapurna_scheme",
+    "name": "Annapurna Scheme",
+    "issuing_body": "Ministry of MSME / State Governments",
+    "sector": ["Food processing", "Services"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["Women"],
+    "min_age": 18,
+    "max_age": 60,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 50000,
+    "benefit_description": "Loans up to ₹50,000 to women starting food catering businesses, with kitchen equipment as collateral.",
+    "eligibility_text_raw": "Women wanting to start or scale a food catering unit. Loan for kitchen equipment purchase. Repayable in 36 months.",
+    "plain_summary_what": {
+      "en": "A loan of up to ₹50,000 to buy kitchen equipment and start a food catering or tiffin service business.",
+      "hi": "रसोई उपकरण खरीदने और खाना पकाने/टिफिन सेवा व्यवसाय शुरू करने के लिए ₹50,000 तक का ऋण।",
+      "mr": "स्वयंपाकघर उपकरणे खरेदी करण्यासाठी आणि खाणे पुरवठा/टिफिन सेवा व्यवसाय सुरू करण्यासाठी ₹50,000 पर्यंत कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "Must be a woman wanting to start a food business (catering, tiffin, small restaurant). No collateral beyond kitchen equipment.",
+      "hi": "खाद्य व्यवसाय (कैटरिंग, टिफिन, छोटा रेस्टोरेंट) शुरू करने वाली महिला होनी चाहिए।",
+      "mr": "खाद्य व्यवसाय (कॅटरिंग, टिफिन, लहान रेस्टॉरंट) सुरू करू इच्छिणारी महिला असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply at your nearest public sector bank or State Bank of India branch.",
+      "hi": "नजदीकी सार्वजनिक क्षेत्र के बैंक या भारतीय स्टेट बैंक शाखा में आवेदन करें।",
+      "mr": "जवळच्या सार्वजनिक क्षेत्र बँक किंवा स्टेट बँक ऑफ इंडिया शाखेत अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Address Proof", "Business Plan (food catering)", "Bank Account"],
+    "official_link": "https://msme.gov.in",
+    "tags": ["food", "catering", "tiffin", "women", "cooking", "restaurant", "kitchen", "food business"]
+  },
+  {
+    "scheme_id": "pmkvy",
+    "name": "Pradhan Mantri Kaushal Vikas Yojana (PMKVY)",
+    "issuing_body": "National Skill Development Corporation (NSDC), Ministry of Skill Development",
+    "sector": ["Manufacturing", "Services", "Agriculture-allied", "Handicrafts", "Construction"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 15,
+    "max_age": 45,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea"],
+    "funding_min": 0,
+    "funding_max": 0,
+    "benefit_description": "Free skill training of 200–300 hours in 350+ job roles with a ₹8,000 reward on certification. Leads to employment or self-employment.",
+    "eligibility_text_raw": "Indian citizens between 15-45 years who are school/college dropouts or unemployed. Training is completely free with a monetary reward on passing the assessment.",
+    "plain_summary_what": {
+      "en": "Free skill training (2–3 months) in 350+ trades. You get ₹8,000 cash reward on passing the exam. Certificate helps you get jobs or start a business.",
+      "hi": "350+ व्यापारों में मुफ्त कौशल प्रशिक्षण (2-3 महीने)। परीक्षा पास करने पर ₹8,000 नकद पुरस्कार।",
+      "mr": "350+ व्यापारांमध्ये मोफत कौशल्य प्रशिक्षण (2-3 महिने). परीक्षा उत्तीर्ण झाल्यावर ₹8,000 रोख बक्षीस."
+    },
+    "plain_summary_need": {
+      "en": "Must be 15–45 years old and looking for skill training. School dropout or unemployed youth gets priority.",
+      "hi": "15-45 वर्ष की आयु होनी चाहिए और कौशल प्रशिक्षण की तलाश में होना चाहिए।",
+      "mr": "वय 15-45 वर्षे असणे आवश्यक आहे आणि कौशल्य प्रशिक्षण शोधत असणे."
+    },
+    "plain_summary_apply": {
+      "en": "Find a PMKVY Training Centre near you on the PMKVY website and enroll directly.",
+      "hi": "PMKVY वेबसाइट पर अपने पास PMKVY प्रशिक्षण केंद्र खोजें और सीधे नामांकन करें।",
+      "mr": "PMKVY वेबसाइटवर तुमच्या जवळचे PMKVY प्रशिक्षण केंद्र शोधा आणि थेट नोंदणी करा."
+    },
+    "required_documents": ["Aadhaar Card", "Education Certificate", "Passport Photo", "Bank Account"],
+    "official_link": "https://www.pmkvyofficial.org",
+    "tags": ["skill training", "free training", "certificate", "youth", "dropout", "employment", "vocational"]
+  },
+  {
+    "scheme_id": "startup_india_seed",
+    "name": "Startup India Seed Fund Scheme (SISFS)",
+    "issuing_body": "Department for Promotion of Industry and Internal Trade (DPIIT), Govt. of India",
+    "sector": ["Technology", "Manufacturing", "Services", "Agriculture-allied"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 5000000,
+    "benefit_description": "Up to ₹50 lakh in grants and soft loans for DPIIT-recognized startups for proof of concept, prototype, and market entry.",
+    "eligibility_text_raw": "DPIIT-recognized startups not more than 2 years old with innovative product or service. Priority to tech-driven, scalable solutions.",
+    "plain_summary_what": {
+      "en": "Up to ₹50 lakh in grants/soft loans (no equity taken) to build your prototype and enter the market — for DPIIT-recognized innovative startups.",
+      "hi": "DPIIT-मान्यता प्राप्त नवाचार स्टार्टअप के लिए प्रोटोटाइप बनाने और बाजार में प्रवेश के लिए ₹50 लाख तक का अनुदान।",
+      "mr": "DPIIT-मान्यताप्राप्त नाविन्यपूर्ण स्टार्टअपसाठी प्रोटोटाइप तयार करण्यासाठी आणि बाजारात प्रवेश करण्यासाठी ₹50 लाख पर्यंत अनुदान."
+    },
+    "plain_summary_need": {
+      "en": "Must have a DPIIT-recognized startup (registered as Pvt Ltd or LLP), less than 2 years old, with an innovative/scalable product.",
+      "hi": "DPIIT-मान्यता प्राप्त स्टार्टअप होनी चाहिए, 2 साल से कम, नवाचार/स्केलेबल उत्पाद के साथ।",
+      "mr": "DPIIT-मान्यताप्राप्त स्टार्टअप असणे आवश्यक आहे, 2 वर्षांपेक्षा कमी जुनी, नाविन्यपूर्ण/स्केलेबल उत्पादनासह."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through selected incubators on the Startup India portal. First get DPIIT recognition from startup.gov.in.",
+      "hi": "Startup India पोर्टल पर चुने गए इन्क्यूबेटर के माध्यम से आवेदन करें। पहले startup.gov.in से DPIIT मान्यता प्राप्त करें।",
+      "mr": "Startup India पोर्टलवर निवडलेल्या इन्क्यूबेटरद्वारे अर्ज करा. प्रथम startup.gov.in वरून DPIIT मान्यता मिळवा."
+    },
+    "required_documents": ["DPIIT Recognition Certificate", "PAN Card", "Company Registration", "Pitch Deck", "Financial Projections"],
+    "official_link": "https://seedfund.startupindia.gov.in",
+    "tags": ["startup", "seed fund", "innovation", "tech", "grant", "incubator", "prototype", "DPIIT"]
+  },
+  {
+    "scheme_id": "zed_scheme",
+    "name": "ZED — Zero Defect Zero Effect Certification for MSMEs",
+    "issuing_body": "Ministry of MSME, Govt. of India",
+    "sector": ["Manufacturing"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women", "Minority", "PwD"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["existing"],
+    "funding_min": 0,
+    "funding_max": 500000,
+    "benefit_description": "Subsidized quality certification for MSMEs. Up to 80% subsidy on certification cost for SC/ST/Women/PwD/NE-state MSMEs.",
+    "eligibility_text_raw": "Registered MSMEs with Udyam Registration. Higher subsidy for SC/ST/Women/PwD. ZED certification helps access premium markets and government procurement.",
+    "plain_summary_what": {
+      "en": "A quality certification that proves your products are world-class (Zero Defect). Government pays up to 80% of the certification cost. Opens doors to exports and government supply.",
+      "hi": "गुणवत्ता प्रमाणपत्र जो साबित करता है कि आपके उत्पाद विश्व स्तरीय हैं। सरकार प्रमाणीकरण लागत का 80% तक भुगतान करती है।",
+      "mr": "गुणवत्ता प्रमाणपत्र जे सिद्ध करते की तुमची उत्पादने जागतिक दर्जाची आहेत. सरकार प्रमाणीकरण खर्चाच्या 80% पर्यंत देते."
+    },
+    "plain_summary_need": {
+      "en": "Must be a registered manufacturing MSME with Udyam certificate. Your product/process will be assessed against quality standards.",
+      "hi": "Udyam प्रमाणपत्र के साथ पंजीकृत विनिर्माण MSME होनी चाहिए।",
+      "mr": "Udyam प्रमाणपत्रासह नोंदणीकृत उत्पादन MSME असणे आवश्यक आहे."
+    },
+    "plain_summary_apply": {
+      "en": "Apply on the ZED portal (zed.org.in). An assessor visits your unit; certification awarded within 3 months.",
+      "hi": "ZED पोर्टल (zed.org.in) पर आवेदन करें। एक मूल्यांकनकर्ता आपकी इकाई का दौरा करता है।",
+      "mr": "ZED पोर्टल (zed.org.in) वर अर्ज करा. एक मूल्यांकनकर्ता तुमच्या युनिटला भेट देतो."
+    },
+    "required_documents": ["Aadhaar Card", "Udyam Registration Certificate", "GST Registration", "Bank Account"],
+    "official_link": "https://zed.org.in",
+    "tags": ["quality", "certification", "manufacturing", "MSME", "export", "zero defect", "supply chain"]
+  },
+  {
+    "scheme_id": "mahila_shakti_kendra",
+    "name": "Mahila Shakti Kendra (MSK)",
+    "issuing_body": "Ministry of Women & Child Development, Govt. of India",
+    "sector": ["Services", "Handicrafts", "Agriculture-allied"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 0,
+    "benefit_description": "Connects rural women to government schemes, provides training, digital literacy, and skill development. College student volunteers assist.",
+    "eligibility_text_raw": "Rural women who need support in accessing government services, training programs, health, nutrition, and skill development.",
+    "plain_summary_what": {
+      "en": "A one-stop centre in your district that helps rural women access all government schemes, provides skill training, digital literacy, and legal awareness — for free.",
+      "hi": "आपके जिले में एक ऐसा केंद्र जो ग्रामीण महिलाओं को सभी सरकारी योजनाओं तक पहुंचने, कौशल प्रशिक्षण, डिजिटल साक्षरता, और कानूनी जागरूकता प्रदान करता है।",
+      "mr": "तुमच्या जिल्ह्यातील एक केंद्र जे ग्रामीण महिलांना सर्व सरकारी योजनांमध्ये प्रवेश करण्यास, कौशल्य प्रशिक्षण, डिजिटल साक्षरता आणि कायदेशीर जागरूकता प्रदान करते."
+    },
+    "plain_summary_need": {
+      "en": "Any rural woman who wants help accessing government schemes or training. No income criteria.",
+      "hi": "कोई भी ग्रामीण महिला जो सरकारी योजनाओं तक पहुंचने या प्रशिक्षण में मदद चाहती हो।",
+      "mr": "कोणतीही ग्रामीण महिला जी सरकारी योजनांमध्ये प्रवेश किंवा प्रशिक्षणासाठी मदत इच्छिते."
+    },
+    "plain_summary_apply": {
+      "en": "Visit your nearest Mahila Shakti Kendra (located in block/district offices).",
+      "hi": "अपने नजदीकी महिला शक्ति केंद्र (ब्लॉक/जिला कार्यालयों में) जाएं।",
+      "mr": "तुमच्या जवळच्या महिला शक्ती केंद्राला (ब्लॉक/जिल्हा कार्यालयात) भेट द्या."
+    },
+    "required_documents": ["Aadhaar Card"],
+    "official_link": "https://wcd.nic.in/schemes/mahila-shakti-kendras",
+    "tags": ["women", "rural", "digital literacy", "training", "skill", "awareness", "support centre", "free"]
+  },
+  {
+    "scheme_id": "coir_udyami",
+    "name": "Coir Udyami Yojana",
+    "issuing_body": "Coir Board, Ministry of MSME, Govt. of India",
+    "sector": ["Manufacturing", "Handicrafts"],
+    "states_applicable": ["Kerala", "Karnataka", "Tamil Nadu", "Andhra Pradesh", "Goa", "Maharashtra", "Odisha", "West Bengal", "Assam", "Tripura"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 1000000,
+    "benefit_description": "40% government subsidy + 55% bank loan for setting up coir processing/manufacturing units up to ₹10 lakh.",
+    "eligibility_text_raw": "Individuals and cooperatives in coir-growing states wanting to set up coir processing units. Higher priority to women and SC/ST applicants.",
+    "plain_summary_what": {
+      "en": "40% government subsidy + cheap bank loan to set up a coir (coconut fiber) manufacturing or processing unit — up to ₹10 lakh project cost.",
+      "hi": "कॉयर (नारियल फाइबर) विनिर्माण इकाई स्थापित करने के लिए 40% सरकारी सब्सिडी + सस्ता बैंक ऋण।",
+      "mr": "कॉयर (नारळाचे तंतू) उत्पादन युनिट स्थापन करण्यासाठी 40% सरकारी अनुदान + स्वस्त बँक कर्ज."
+    },
+    "plain_summary_need": {
+      "en": "Must be in a coir-producing state, want to start a coir unit, and have 5% of project cost as personal contribution.",
+      "hi": "कॉयर उत्पादक राज्य में होना चाहिए, कॉयर इकाई शुरू करना चाहते हों, और 5% परियोजना लागत व्यक्तिगत योगदान के रूप में।",
+      "mr": "कॉयर उत्पादक राज्यात असणे आवश्यक आहे, कॉयर युनिट सुरू करायचे असेल आणि 5% प्रकल्प खर्च वैयक्तिक योगदान म्हणून."
+    },
+    "plain_summary_apply": {
+      "en": "Apply through your nearest Coir Board regional office with a project report.",
+      "hi": "परियोजना रिपोर्ट के साथ नजदीकी Coir Board क्षेत्रीय कार्यालय के माध्यम से आवेदन करें।",
+      "mr": "प्रकल्प अहवालासह जवळच्या Coir Board प्रादेशिक कार्यालयाद्वारे अर्ज करा."
+    },
+    "required_documents": ["Aadhaar Card", "Project Report", "Bank Loan Sanction Letter", "Land/Shed Proof", "Caste Certificate (if applicable)"],
+    "official_link": "https://coirboard.gov.in",
+    "tags": ["coir", "coconut fiber", "manufacturing", "Kerala", "subsidy", "coastal", "artisan"]
+  },
+  {
+    "scheme_id": "aspire",
+    "name": "ASPIRE — Agro-industry Cluster Development",
+    "issuing_body": "Ministry of MSME, Govt. of India",
+    "sector": ["Agriculture-allied", "Food processing", "Manufacturing"],
+    "states_applicable": ["All India"],
+    "eligible_categories": ["General", "SC", "ST", "OBC", "Women"],
+    "min_age": 18,
+    "max_age": null,
+    "income_ceiling": null,
+    "business_stage_applicable": ["idea", "early"],
+    "funding_min": 0,
+    "funding_max": 10000000,
+    "benefit_description": "Infrastructure support and technology centers for agro-based rural clusters. Helps entrepreneurs start food processing and agro industries.",
+    "eligibility_text_raw": "Entrepreneurs and rural youth interested in agro-processing, food technology, and allied activities. Implemented through Livelihood Business Incubators (LBIs).",
+    "plain_summary_what": {
+      "en": "Access to a government-supported food processing / agro-tech incubator near your area — provides equipment, training, market linkage for food/agro businesses.",
+      "hi": "आपके क्षेत्र के पास सरकार-समर्थित खाद्य प्रसंस्करण/कृषि-तकनीक इन्क्यूबेटर तक पहुंच।",
+      "mr": "तुमच्या क्षेत्राजवळ सरकार-समर्थित अन्न प्रक्रिया/कृषी-तंत्र इन्क्यूबेटरमध्ये प्रवेश."
+    },
+    "plain_summary_need": {
+      "en": "Must want to start or grow an agro-based or food processing business. Rural youth and farmers' children get priority.",
+      "hi": "कृषि-आधारित या खाद्य प्रसंस्करण व्यवसाय शुरू या बढ़ाना चाहते हों। ग्रामीण युवाओं और किसानों के बच्चों को प्राथमिकता।",
+      "mr": "कृषी-आधारित किंवा अन्न प्रक्रिया व्यवसाय सुरू किंवा वाढवायचा असेल. ग्रामीण तरुण आणि शेतकऱ्यांच्या मुलांना प्राधान्य."
+    },
+    "plain_summary_apply": {
+      "en": "Find a Livelihood Business Incubator (LBI) in your area through the MSME portal.",
+      "hi": "MSME पोर्टल के माध्यम से अपने क्षेत्र में Livelihood Business Incubator (LBI) खोजें।",
+      "mr": "MSME पोर्टलद्वारे तुमच्या क्षेत्रातील Livelihood Business Incubator (LBI) शोधा."
+    },
+    "required_documents": ["Aadhaar Card", "Business Plan", "Educational Qualification", "Bank Account"],
+    "official_link": "https://msme.gov.in/aspire",
+    "tags": ["agro", "food processing", "rural", "incubator", "farmer", "agriculture", "food tech"]
+  }
+]

@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sentence-transformers
+numpy
+scikit-learn
+pydantic
+deep-translator
+gTTS
+python-multipart
+httpx
