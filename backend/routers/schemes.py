@@ -13,7 +13,7 @@ from typing import List, Optional, Dict, Any
 
 from matching.rule_engine import filter_schemes
 from matching.nlp_engine import semantic_match, combine_scores
-from matching.live_fetcher import get_all_active_schemes, search_live_sources, trigger_live_sync
+from matching.live_fetcher import get_all_active_schemes, search_live_sources, trigger_live_sync, run_auto_sync
 from utils.translation import translate_scheme_summary, translate_text, SUPPORTED_LANGUAGES
 from routers.profile import get_profile
 
@@ -117,9 +117,10 @@ async def live_search(
 @router.post("/schemes/sync-live")
 async def sync_live():
     """
-    Triggers an automated sync of real-time schemes across the platform.
+    Triggers an immediate sync from myscheme.gov.in.
+    Background auto-sync also runs every 6 hours automatically.
     """
-    res = trigger_live_sync()
+    res = await run_auto_sync()
     return res
 
 
