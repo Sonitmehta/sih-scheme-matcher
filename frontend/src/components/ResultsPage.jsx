@@ -1,64 +1,25 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Languages, Sparkles, TrendingUp, Users, ArrowLeft,
-  Radio, RefreshCw, Search, Loader2, CheckCircle, ExternalLink
+  Radio, RefreshCw, Search, Loader2, ExternalLink, Globe2, ChevronRight
 } from "lucide-react";
 import SchemeCard from "./SchemeCard";
 import SchemeChatbot from "./SchemeChatbot";
 import { matchSchemes, createProfile, searchLiveSchemes, triggerLiveSync } from "../lib/api";
 
 const LANGS = [
-  { code: "en", label: "English", native: "English", flag: "🇬🇧" },
-  { code: "hi", label: "Hindi", native: "हिंदी", flag: "🟧" },
-  { code: "mr", label: "Marathi", native: "मराठी", flag: "🔵" },
-  { code: "ta", label: "Tamil", native: "தமிழ்", flag: "🟨" },
-  { code: "te", label: "Telugu", native: "తెలుగు", flag: "🟣" },
-  { code: "bn", label: "Bengali", native: "বাংলা", flag: "🟩" },
-  { code: "gu", label: "Gujarati", native: "ગુજરાતી", flag: "🟥" },
-  { code: "kn", label: "Kannada", native: "ಕನ್ನಡ", flag: "🟦" },
-  { code: "ml", label: "Malayalam", native: "മലയാളം", flag: "🟫" },
-  { code: "pa", label: "Punjabi", native: "ਪੰਜਾਬੀ", flag: "🟨" },
+  { code: "en", label: "English",   native: "English",    flag: "🇬🇧" },
+  { code: "hi", label: "Hindi",     native: "हिंदी",      flag: "🟧" },
+  { code: "mr", label: "Marathi",   native: "मराठी",      flag: "🔵" },
+  { code: "ta", label: "Tamil",     native: "தமிழ்",      flag: "🟨" },
+  { code: "te", label: "Telugu",    native: "తెలుగు",     flag: "🟣" },
+  { code: "bn", label: "Bengali",   native: "বাংলা",      flag: "🟩" },
+  { code: "gu", label: "Gujarati",  native: "ગુજરાતી",   flag: "🟥" },
+  { code: "kn", label: "Kannada",   native: "ಕನ್ನಡ",      flag: "🟦" },
+  { code: "ml", label: "Malayalam", native: "മലയാളം",     flag: "🟫" },
+  { code: "pa", label: "Punjabi",   native: "ਪੰਜਾਬੀ",    flag: "🟨" },
 ];
-
-function PipelineStats({ data, onSync, syncing }) {
-  return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm mb-6">
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100 flex-wrap gap-2">
-        <div className="flex items-center gap-2">
-          <span className="flex h-2.5 w-2.5 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-          </span>
-          <span className="text-xs font-bold text-emerald-800">
-            Real-Time Automated Data Ingestion Active
-          </span>
-        </div>
-        <button
-          onClick={onSync}
-          disabled={syncing}
-          className="text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded-xl transition-all disabled:opacity-50"
-        >
-          <RefreshCw size={12} className={syncing ? "animate-spin" : ""} />
-          {syncing ? "Syncing..." : "Sync Live Schemes"}
-        </button>
-      </div>
-
-      <div className="grid grid-cols-3 gap-3">
-        {[
-          { label: "Active Pool", value: data.pipeline_info?.total_schemes || 25, color: "text-gray-800" },
-          { label: "Rule Qualified", value: data.pipeline_info?.after_rule_filter || "–", color: "text-indigo-600" },
-          { label: "Ranked AI Matches", value: data.matches?.length || 0, color: "text-green-600" },
-        ].map((s) => (
-          <div key={s.label} className="text-center">
-            <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
-            <div className="text-gray-500 text-[11px] mt-0.5">{s.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function ResultsPage({ matchData: initialData, profileData, onRetry }) {
   const [lang, setLang] = useState("en");
@@ -66,13 +27,10 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
   const [loading, setLoading] = useState(!initialData);
   const [syncing, setSyncing] = useState(false);
   const [activeSchemeForBot, setActiveSchemeForBot] = useState(null);
-
-  // Live real-time search state
   const [liveQuery, setLiveQuery] = useState("");
   const [liveSearching, setLiveSearching] = useState(false);
   const [liveResults, setLiveResults] = useState([]);
 
-  // Fetch results if coming from preset persona
   useEffect(() => {
     if (!initialData && profileData) {
       (async () => {
@@ -81,11 +39,8 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           const { profile_id } = await createProfile(profileData);
           const data = await matchSchemes(profile_id);
           setMatchData(data);
-        } catch (e) {
-          console.error(e);
-        } finally {
-          setLoading(false);
-        }
+        } catch (e) { console.error(e); }
+        finally { setLoading(false); }
       })();
     }
   }, []);
@@ -99,11 +54,8 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
         const refreshed = await matchSchemes(profile_id);
         setMatchData(refreshed);
       }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setSyncing(false);
-    }
+    } catch (e) { console.error(e); }
+    finally { setSyncing(false); }
   };
 
   const handleLiveSearch = async (e) => {
@@ -111,29 +63,21 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
     if (!liveQuery.trim() || liveSearching) return;
     setLiveSearching(true);
     try {
-      const res = await searchLiveSchemes(
-        liveQuery,
-        profileData?.category || "",
-        profileData?.state || ""
-      );
+      const res = await searchLiveSchemes(liveQuery, profileData?.category || "", profileData?.state || "");
       setLiveResults(res.results || []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLiveSearching(false);
-    }
+    } catch (err) { console.error(err); }
+    finally { setLiveSearching(false); }
   };
 
+  // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
-          className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full"
-        />
-        <p className="text-gray-700 font-bold text-base">Running Real-Time AI Scheme Discovery...</p>
-        <p className="text-gray-400 text-xs">Querying live government databases & semantic model</p>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-gray-50">
+        <div className="w-14 h-14 border-4 border-green-600 border-t-transparent rounded-full animate-spin" />
+        <div className="text-center">
+          <p className="text-gray-800 font-bold text-lg">Finding your schemes...</p>
+          <p className="text-gray-400 text-sm mt-1">Running AI matching across live government databases</p>
+        </div>
       </div>
     );
   }
@@ -143,173 +87,193 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
   const matches = matchData.matches || [];
   const strong = matches.filter((m) => m.match_label === "Strong Match" || m.match_label === "Good Match");
   const others = matches.filter((m) => m.match_label === "Possible Match" || m.match_label === "Low Relevance");
+  const currentLang = LANGS.find((l) => l.code === lang);
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8 relative pb-28">
-      {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <Sparkles size={20} className="text-amber-500" />
-          <h1 className="text-2xl md:text-3xl font-black text-gray-900">
-            Found <span className="text-indigo-600">{matches.length} Eligible Schemes</span>
-          </h1>
-        </div>
-        <p className="text-gray-500 text-xs md:text-sm">
-          Matched for: <strong className="text-gray-800">{profileData?.category || "General"}</strong> ·{" "}
-          <strong className="text-gray-800">{profileData?.state || "All India"}</strong> ·{" "}
-          <strong className="text-gray-800">{profileData?.sector || "All Sectors"}</strong> ·{" "}
-          <strong className="text-gray-800">{profileData?.business_stage || "Early stage"}</strong>
-        </p>
-      </motion.div>
-
-      {/* Pipeline transparency + Live sync stats */}
-      <PipelineStats data={matchData} onSync={handleSyncLive} syncing={syncing} />
-
-      {/* 10 Regional Languages Selector */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <Languages size={18} className="text-indigo-600" />
-          <span className="text-xs font-bold text-gray-700">Choose Language for Text &amp; Regional Voice (10 Languages):</span>
-        </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          {LANGS.map((l) => (
+    <div className="min-h-screen bg-gray-50">
+      {/* ── Top bar ── */}
+      <div className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
             <button
-              key={l.code}
-              onClick={() => setLang(l.code)}
-              className={`text-xs px-3.5 py-2 rounded-xl font-medium transition-all flex items-center gap-1.5 ${
-                lang === l.code
-                  ? "bg-indigo-600 text-white font-bold shadow-md scale-105"
-                  : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200"
-              }`}
+              onClick={onRetry}
+              className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors"
             >
-              <span>{l.flag}</span>
-              <span>{l.native}</span>
-              <span className="text-[10px] opacity-70">({l.label})</span>
+              <ArrowLeft size={16} /> Back
             </button>
-          ))}
+            <div className="w-px h-5 bg-gray-200" />
+            <div className="flex items-center gap-2">
+              <Sparkles size={16} className="text-green-600" />
+              <span className="font-bold text-gray-900 text-sm">
+                {matches.length} Schemes Found
+              </span>
+              <span className="text-gray-400 text-xs hidden sm:inline">
+                · {profileData?.category || "General"} · {profileData?.state || "All India"}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* Live sync */}
+            <div className="hidden sm:flex items-center gap-1.5 text-xs text-emerald-700 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Live data
+            </div>
+            <button
+              onClick={handleSyncLive}
+              disabled={syncing}
+              className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-green-700 border border-gray-200 hover:border-green-400 bg-white px-3 py-1.5 rounded-full transition-all disabled:opacity-50"
+            >
+              <RefreshCw size={12} className={syncing ? "animate-spin" : ""} />
+              {syncing ? "Syncing..." : "Sync"}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Live Real-Time Search Bar */}
-      <div className="bg-gradient-to-r from-indigo-50 via-purple-50 to-amber-50 rounded-2xl border border-indigo-100 p-4 shadow-sm mb-8">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
-            <Search size={14} className="text-indigo-600" /> Search Any Live Government Scheme in Real Time:
-          </span>
-          <span className="text-[10px] bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full font-semibold">
-            Live Web Discovery
-          </span>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 pb-32">
+        {/* ── Pipeline summary row ── */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          {[
+            { label: "Total Schemes in Pool", value: matchData.pipeline_info?.total_schemes || 25, color: "text-gray-800" },
+            { label: "Passed Rule Filter",    value: matchData.pipeline_info?.after_rule_filter || "–", color: "text-blue-600" },
+            { label: "AI Ranked Matches",     value: matches.length, color: "text-green-700" },
+          ].map((s) => (
+            <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+              <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
+              <div className="text-gray-500 text-[11px] mt-0.5">{s.label}</div>
+            </div>
+          ))}
         </div>
-        <form onSubmit={handleLiveSearch} className="flex gap-2">
-          <input
-            type="text"
-            value={liveQuery}
-            onChange={(e) => setLiveQuery(e.target.value)}
-            placeholder="e.g. 'solar pump subsidy for farmers', 'drone scheme', 'weaver grant Tamil Nadu'..."
-            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-2 text-xs text-gray-800 focus:outline-none focus:border-indigo-500"
-          />
-          <button
-            type="submit"
-            disabled={liveSearching || !liveQuery.trim()}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors disabled:opacity-50 flex items-center gap-1.5"
-          >
-            {liveSearching ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />}
-            <span>{liveSearching ? "Searching..." : "Live Search"}</span>
-          </button>
-        </form>
 
-        {/* Live Search Results */}
-        {liveResults.length > 0 && (
-          <div className="mt-4 pt-3 border-t border-indigo-100/60 space-y-3">
-            <h4 className="text-xs font-bold text-gray-800 flex items-center gap-1">
-              <Radio size={12} className="text-emerald-500 animate-pulse" /> Discovered {liveResults.length} Real-Time Schemes:
-            </h4>
-            <div className="space-y-3">
+        {/* ── Language selector ── */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Languages size={16} className="text-green-600" />
+            <span className="text-xs font-bold text-gray-700">Language for Text & Voice:</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {LANGS.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => setLang(l.code)}
+                className={`text-xs px-3.5 py-1.5 rounded-full font-semibold transition-all ${
+                  lang === l.code
+                    ? "bg-green-700 text-white shadow-sm"
+                    : "bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700 border border-gray-200"
+                }`}
+              >
+                {l.native}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Live search ── */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-7">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Search size={14} className="text-gray-400" />
+              <span className="text-xs font-bold text-gray-700">Search any government scheme live:</span>
+            </div>
+            <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">
+              Live from myscheme.gov.in
+            </span>
+          </div>
+          <form onSubmit={handleLiveSearch} className="flex gap-2">
+            <input
+              type="text"
+              value={liveQuery}
+              onChange={(e) => setLiveQuery(e.target.value)}
+              placeholder="e.g. 'solar pump subsidy', 'women handicraft loan', 'drone policy'..."
+              className="flex-1 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-green-500 focus:bg-white transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={liveSearching || !liveQuery.trim()}
+              className="bg-green-700 hover:bg-green-800 text-white text-xs font-bold px-5 py-2 rounded-full transition-colors disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {liveSearching ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />}
+              {liveSearching ? "Searching..." : "Search"}
+            </button>
+          </form>
+
+          {/* Live results */}
+          {liveResults.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Radio size={12} className="text-emerald-500 animate-pulse" />
+                <span className="text-xs font-bold text-gray-700">Found {liveResults.length} live schemes:</span>
+              </div>
               {liveResults.map((lr, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-3 border border-emerald-100 shadow-sm text-xs">
-                  <div className="flex items-start justify-between gap-2">
-                    <h5 className="font-bold text-gray-900">{lr.name}</h5>
-                    <a
-                      href={lr.official_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[11px] text-indigo-600 hover:underline flex items-center gap-0.5 font-medium shrink-0"
-                    >
-                      Portal <ExternalLink size={10} />
-                    </a>
+                <div key={idx} className="flex items-start justify-between gap-3 bg-gray-50 border border-gray-100 rounded-xl p-3">
+                  <div className="flex-1 min-w-0">
+                    <h5 className="font-bold text-gray-900 text-xs">{lr.name}</h5>
+                    <p className="text-gray-500 text-[11px] mt-0.5 line-clamp-2">{lr.benefit_description}</p>
                   </div>
-                  <p className="text-gray-600 text-[11px] mt-1 line-clamp-2">{lr.benefit_description}</p>
+                  <a
+                    href={lr.official_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 text-[11px] text-green-700 hover:underline flex items-center gap-1 font-semibold"
+                  >
+                    View <ExternalLink size={10} />
+                  </a>
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ── Top matches ── */}
+        {strong.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <TrendingUp size={17} className="text-green-600" />
+              <h2 className="font-bold text-gray-900 text-base">Best Matching Schemes</h2>
+              <span className="bg-green-100 text-green-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
+                {strong.length}
+              </span>
+            </div>
+            <div className="space-y-3">
+              {strong.map((m, i) => (
+                <SchemeCard key={m.scheme_id} match={m} lang={lang} index={i} onAskBot={setActiveSchemeForBot} />
               ))}
             </div>
           </div>
         )}
+
+        {/* ── Other matches ── */}
+        {others.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <Users size={17} className="text-amber-600" />
+              <h2 className="font-bold text-gray-900 text-base">Also Worth Exploring</h2>
+              <span className="bg-amber-100 text-amber-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
+                {others.length}
+              </span>
+            </div>
+            <div className="space-y-3">
+              {others.map((m, i) => (
+                <SchemeCard key={m.scheme_id} match={m} lang={lang} index={i} onAskBot={setActiveSchemeForBot} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Retry CTA ── */}
+        <div className="text-center mt-10">
+          <button
+            onClick={onRetry}
+            className="text-sm text-gray-600 hover:text-green-700 border border-gray-200 hover:border-green-400 bg-white px-6 py-2.5 rounded-full font-medium transition-all shadow-sm"
+          >
+            ↺ Search with a Different Profile
+          </button>
+        </div>
       </div>
 
-      {/* Top Matches */}
-      {strong.length > 0 && (
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp size={18} className="text-green-600" />
-            <h2 className="font-bold text-gray-800 text-base md:text-lg">Top Recommended Schemes</h2>
-            <span className="bg-green-100 text-green-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
-              {strong.length} schemes
-            </span>
-          </div>
-          <div className="space-y-4">
-            {strong.map((m, i) => (
-              <SchemeCard
-                key={m.scheme_id}
-                match={m}
-                lang={lang}
-                index={i}
-                onAskBot={(s) => setActiveSchemeForBot(s)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Additional Matches */}
-      {others.length > 0 && (
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Users size={18} className="text-amber-600" />
-            <h2 className="font-bold text-gray-800 text-base md:text-lg">Also Worth Exploring</h2>
-            <span className="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-bold">
-              {others.length} schemes
-            </span>
-          </div>
-          <div className="space-y-4">
-            {others.map((m, i) => (
-              <SchemeCard
-                key={m.scheme_id}
-                match={m}
-                lang={lang}
-                index={i}
-                onAskBot={(s) => setActiveSchemeForBot(s)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Retry CTA */}
-      <div className="mt-12 text-center">
-        <button
-          onClick={onRetry}
-          className="text-xs md:text-sm text-gray-600 hover:text-indigo-600 border border-gray-200 hover:border-indigo-300 bg-white px-6 py-3 rounded-xl font-medium transition-all shadow-sm"
-        >
-          ↺ Search with a Different Profile
-        </button>
-      </div>
-
-      {/* Floating Multilingual AI Assistant */}
-      <SchemeChatbot
-        currentLang={lang}
-        currentScheme={activeSchemeForBot}
-        userProfile={profileData}
-      />
+      {/* Floating chatbot */}
+      <SchemeChatbot currentLang={lang} currentScheme={activeSchemeForBot} userProfile={profileData} />
     </div>
   );
 }
