@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, MicOff, ChevronRight, ChevronLeft, Loader2, Sparkles } from "lucide-react";
+import { Mic, MicOff, ChevronRight, ChevronLeft, Loader2, Sparkles, Home } from "lucide-react";
 import { createProfile, matchSchemes } from "../lib/api";
 
 const STEPS = ["Category", "Location", "Sector", "Business", "Description"];
@@ -39,7 +39,7 @@ const STATES = [
   "Delhi","Jammu & Kashmir","Ladakh","Puducherry"
 ];
 
-export default function ProfileWizard({ onComplete }) {
+export default function ProfileWizard({ onComplete, onBack }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -65,6 +65,15 @@ export default function ProfileWizard({ onComplete }) {
     return true;
   };
 
+  const handleBack = () => {
+    if (currentStep === 0) {
+      // At first step → go back to landing page
+      if (onBack) onBack();
+    } else {
+      setCurrentStep((s) => s - 1);
+    }
+  };
+
   const handleVoiceInput = () => {
     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
       alert("Voice input not supported in this browser. Please use Chrome.");
@@ -75,16 +84,13 @@ export default function ProfileWizard({ onComplete }) {
     recognition.lang = "en-IN";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
     setIsListening(true);
     recognition.start();
-
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
       set("business_description", profile.business_description ? `${profile.business_description} ${transcript}` : transcript);
       setIsListening(false);
     };
-
     recognition.onerror = () => setIsListening(false);
     recognition.onend = () => setIsListening(false);
   };
@@ -113,22 +119,22 @@ export default function ProfileWizard({ onComplete }) {
     }
   };
 
+  // Shared option button class builders
+  const optionClass = (selected) =>
+    `flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all w-full ${
+      selected
+        ? "border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-900 dark:text-blue-200 shadow-sm"
+        : "border-gray-200 dark:border-slate-700 bg-white dark:bg-[#0f172a] hover:border-blue-300 dark:hover:border-blue-700 text-gray-700 dark:text-slate-300"
+    }`;
+
   const stepContent = [
     // Step 0: Category
     <div key="cat" className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">What best describes you?</h2>
-      <p className="text-gray-500 text-sm mb-4">This helps us find schemes you're specifically eligible for</p>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">What best describes you?</h2>
+      <p className="text-gray-500 dark:text-slate-400 text-sm mb-4">This helps us find schemes you're specifically eligible for</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {CATEGORIES.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => set("category", cat.id)}
-            className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all
-              ${profile.category === cat.id
-                ? "border-blue-600 bg-blue-50 text-blue-900 shadow-sm"
-                : "border-gray-200 bg-white hover:border-blue-300 text-gray-700"
-              }`}
-          >
+          <button key={cat.id} onClick={() => set("category", cat.id)} className={optionClass(profile.category === cat.id)}>
             <span className="text-2xl">{cat.emoji}</span>
             <span className="font-medium text-sm">{cat.label}</span>
           </button>
@@ -138,12 +144,12 @@ export default function ProfileWizard({ onComplete }) {
 
     // Step 1: Location
     <div key="loc" className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">Where are you based?</h2>
-      <p className="text-gray-500 text-sm mb-4">Some schemes are state-specific or have higher benefits in certain states</p>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Where are you based?</h2>
+      <p className="text-gray-500 dark:text-slate-400 text-sm mb-4">Some schemes are state-specific or have higher benefits in certain states</p>
       <select
         value={profile.state}
         onChange={(e) => set("state", e.target.value)}
-        className="w-full border-2 border-gray-200 rounded-xl p-4 text-gray-800 focus:border-blue-600 focus:outline-none text-base"
+        className="w-full border-2 border-gray-200 dark:border-slate-700 rounded-xl p-4 text-gray-800 dark:text-slate-200 bg-white dark:bg-[#0f172a] focus:border-blue-600 focus:outline-none text-base"
       >
         <option value="">Select your state...</option>
         {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -152,19 +158,11 @@ export default function ProfileWizard({ onComplete }) {
 
     // Step 2: Sector
     <div key="sec" className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">What kind of business?</h2>
-      <p className="text-gray-500 text-sm mb-4">Pick the closest category for your business</p>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">What kind of business?</h2>
+      <p className="text-gray-500 dark:text-slate-400 text-sm mb-4">Pick the closest category for your business</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {SECTORS.map((sec) => (
-          <button
-            key={sec.id}
-            onClick={() => set("sector", sec.id)}
-            className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all
-              ${profile.sector === sec.id
-                ? "border-blue-600 bg-blue-50 text-blue-900 shadow-sm"
-                : "border-gray-200 bg-white hover:border-blue-300 text-gray-700"
-              }`}
-          >
+          <button key={sec.id} onClick={() => set("sector", sec.id)} className={optionClass(profile.sector === sec.id)}>
             <span className="text-2xl">{sec.emoji}</span>
             <span className="font-medium text-sm">{sec.label}</span>
           </button>
@@ -174,19 +172,11 @@ export default function ProfileWizard({ onComplete }) {
 
     // Step 3: Business Stage
     <div key="stage" className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">What stage is your business at?</h2>
-      <p className="text-gray-500 text-sm mb-4">This determines which schemes you can access now</p>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">What stage is your business at?</h2>
+      <p className="text-gray-500 dark:text-slate-400 text-sm mb-4">This determines which schemes you can access now</p>
       <div className="space-y-3">
         {STAGES.map((stage) => (
-          <button
-            key={stage.id}
-            onClick={() => set("business_stage", stage.id)}
-            className={`w-full flex items-center gap-4 p-5 rounded-xl border-2 text-left transition-all
-              ${profile.business_stage === stage.id
-                ? "border-blue-600 bg-blue-50 text-blue-900 shadow-sm"
-                : "border-gray-200 bg-white hover:border-blue-300 text-gray-700"
-              }`}
-          >
+          <button key={stage.id} onClick={() => set("business_stage", stage.id)} className={optionClass(profile.business_stage === stage.id)}>
             <span className="text-3xl">{stage.emoji}</span>
             <span className="font-medium">{stage.label}</span>
           </button>
@@ -194,22 +184,24 @@ export default function ProfileWizard({ onComplete }) {
       </div>
     </div>,
 
-    // Step 4: Description (optional)
+    // Step 4: Description
     <div key="desc" className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">Describe your business</h2>
-      <p className="text-gray-500 text-sm mb-1">Optional but <span className="text-blue-600 font-semibold">strongly recommended</span> — our AI uses this to find non-obvious matches</p>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Describe your business</h2>
+      <p className="text-gray-500 dark:text-slate-400 text-sm mb-1">
+        Optional but <span className="text-blue-600 dark:text-blue-400 font-semibold">strongly recommended</span> — our AI uses this to find non-obvious matches
+      </p>
       <div className="relative">
         <textarea
           value={profile.business_description}
           onChange={(e) => set("business_description", e.target.value)}
-          placeholder='e.g. "I make handwoven silk sarees in Varanasi and want to sell online" or "I run a small catering business serving lunch tiffins to offices"'
-          className="w-full border-2 border-gray-200 rounded-xl p-4 text-gray-800 focus:border-blue-600 focus:outline-none resize-none text-base"
+          placeholder='e.g. "I make handwoven silk sarees in Varanasi and want to sell online"'
+          className="w-full border-2 border-gray-200 dark:border-slate-700 rounded-xl p-4 text-gray-800 dark:text-slate-200 bg-white dark:bg-[#0f172a] focus:border-blue-600 focus:outline-none resize-none text-base placeholder:text-gray-400 dark:placeholder:text-slate-500"
           rows={4}
         />
         <button
           onClick={handleVoiceInput}
           className={`absolute bottom-3 right-3 p-2 rounded-lg transition-colors ${
-            isListening ? "bg-red-100 text-red-600" : "bg-blue-50 text-blue-600 hover:bg-blue-100"
+            isListening ? "bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400" : "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40"
           }`}
           title="Speak your description"
         >
@@ -218,29 +210,29 @@ export default function ProfileWizard({ onComplete }) {
       </div>
       {isListening && (
         <p className="text-red-500 text-sm animate-pulse flex items-center gap-1">
-          <span className="w-2 h-2 bg-red-500 rounded-full inline-block"></span>
+          <span className="w-2 h-2 bg-red-500 rounded-full inline-block" />
           Listening... speak now
         </p>
       )}
       <div className="grid grid-cols-2 gap-3 mt-4">
         <div>
-          <label className="text-xs text-gray-500 block mb-1">Annual income (₹) — optional</label>
+          <label className="text-xs text-gray-500 dark:text-slate-500 block mb-1">Annual income (₹) — optional</label>
           <input
             type="number"
             placeholder="e.g. 200000"
             value={profile.annual_income}
             onChange={(e) => set("annual_income", e.target.value)}
-            className="w-full border-2 border-gray-200 rounded-lg p-3 text-gray-800 focus:border-blue-400 focus:outline-none text-sm"
+            className="w-full border-2 border-gray-200 dark:border-slate-700 rounded-lg p-3 text-gray-800 dark:text-slate-200 bg-white dark:bg-[#0f172a] focus:border-blue-400 focus:outline-none text-sm"
           />
         </div>
         <div>
-          <label className="text-xs text-gray-500 block mb-1">Funding needed (₹) — optional</label>
+          <label className="text-xs text-gray-500 dark:text-slate-500 block mb-1">Funding needed (₹) — optional</label>
           <input
             type="number"
             placeholder="e.g. 500000"
             value={profile.funding_need}
             onChange={(e) => set("funding_need", e.target.value)}
-            className="w-full border-2 border-gray-200 rounded-lg p-3 text-gray-800 focus:border-blue-400 focus:outline-none text-sm"
+            className="w-full border-2 border-gray-200 dark:border-slate-700 rounded-lg p-3 text-gray-800 dark:text-slate-200 bg-white dark:bg-[#0f172a] focus:border-blue-400 focus:outline-none text-sm"
           />
         </div>
       </div>
@@ -251,12 +243,12 @@ export default function ProfileWizard({ onComplete }) {
     <div className="max-w-2xl mx-auto px-6 py-10">
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="flex justify-between text-xs text-gray-400 mb-2">
+        <div className="flex justify-between text-xs text-gray-400 dark:text-slate-500 mb-2">
           {STEPS.map((s, i) => (
-            <span key={s} className={i <= currentStep ? "text-blue-600 font-semibold" : ""}>{s}</span>
+            <span key={s} className={i <= currentStep ? "text-blue-600 dark:text-blue-400 font-semibold" : ""}>{s}</span>
           ))}
         </div>
-        <div className="h-2 bg-gray-200 rounded-full">
+        <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded-full">
           <div
             className="h-2 bg-blue-600 rounded-full transition-all duration-500"
             style={{ width: `${((currentStep + 1) / STEPS.length) * 100}%` }}
@@ -279,26 +271,28 @@ export default function ProfileWizard({ onComplete }) {
 
       {/* Error */}
       {error && (
-        <div className="mt-4 bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm">
+        <div className="mt-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-xl p-4 text-sm">
           {error}
         </div>
       )}
 
-      {/* Navigation */}
+      {/* Navigation — back button always works */}
       <div className="flex justify-between items-center mt-8">
         <button
-          onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
-          disabled={currentStep === 0}
-          className="flex items-center gap-1 text-gray-500 hover:text-gray-800 disabled:opacity-30 transition-colors"
+          onClick={handleBack}
+          className="flex items-center gap-1.5 text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:hover:text-white transition-colors font-medium"
         >
-          <ChevronLeft size={18} /> Back
+          {currentStep === 0
+            ? <><Home size={16} /> Home</>
+            : <><ChevronLeft size={18} /> Back</>
+          }
         </button>
 
         {currentStep < STEPS.length - 1 ? (
           <button
             onClick={() => setCurrentStep((s) => s + 1)}
             disabled={!canProceed()}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm disabled:cursor-not-allowed"
           >
             Next <ChevronRight size={18} />
           </button>
@@ -306,13 +300,12 @@ export default function ProfileWizard({ onComplete }) {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-blue-500/25 hover:shadow-xl hover:scale-105"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-blue-500/25 hover:shadow-xl hover:scale-105 disabled:cursor-not-allowed"
           >
-            {loading ? (
-              <><Loader2 size={18} className="animate-spin" /> Finding Schemes...</>
-            ) : (
-              <><Sparkles size={18} /> Find My Schemes</>
-            )}
+            {loading
+              ? <><Loader2 size={18} className="animate-spin" /> Finding Schemes...</>
+              : <><Sparkles size={18} /> Find My Schemes</>
+            }
           </button>
         )}
       </div>

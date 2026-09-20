@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
 import ProfileWizard from "../components/ProfileWizard";
 import ResultsPage from "../components/ResultsPage";
+import { useTheme } from "../context/ThemeContext";
 
 export default function MatchPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { dark, toggle } = useTheme();
   const presetProfile = location.state?.presetProfile || null;
 
   const [step, setStep] = useState(presetProfile ? "results" : "wizard");
@@ -20,24 +23,35 @@ export default function MatchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#090e17] transition-colors duration-200">
       {/* Top bar */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="bg-white dark:bg-[#0f172a] border-b border-gray-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold transition-colors"
+            className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold transition-colors"
           >
             ← SchemeAI
           </button>
-          {step === "results" && (
+
+          <div className="flex items-center gap-3">
+            {step === "results" && (
+              <button
+                onClick={() => { setStep("wizard"); setMatchData(null); setProfileData(null); }}
+                className="text-sm text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 border border-gray-300 dark:border-slate-700 px-4 py-2 rounded-lg transition-colors"
+              >
+                ↺ Try Another Profile
+              </button>
+            )}
+            {/* Dark mode toggle */}
             <button
-              onClick={() => { setStep("wizard"); setMatchData(null); setProfileData(null); }}
-              className="text-sm text-gray-500 hover:text-gray-800 border border-gray-300 px-4 py-2 rounded-lg transition-colors"
+              onClick={toggle}
+              title={dark ? "Light mode" : "Dark mode"}
+              className="p-2 rounded-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
-              ↺ Try Another Profile
+              {dark ? <Sun size={15} /> : <Moon size={15} />}
             </button>
-          )}
+          </div>
         </div>
       </header>
 
@@ -50,7 +64,10 @@ export default function MatchPage() {
             exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <ProfileWizard onComplete={handleMatchComplete} />
+            <ProfileWizard
+              onComplete={handleMatchComplete}
+              onBack={() => navigate("/")}
+            />
           </motion.div>
         )}
         {step === "results" && (

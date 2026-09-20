@@ -7,24 +7,10 @@ import { sendChatMessage } from "../lib/api";
 import VoiceOutput from "./VoiceOutput";
 
 const LANG_LABELS = {
-  en: "English",
-  hi: "हिंदी",
-  mr: "मराठी",
-  ta: "தமிழ்",
-  te: "తెలుగు",
-  bn: "বাংলা",
-  gu: "ગુજરાતી",
-  kn: "ಕನ್ನಡ",
-  ml: "മലയാളം",
-  pa: "ਪੰਜਾਬੀ"
+  en: "English", hi: "हिंदी", mr: "मराठी",
+  ta: "தமிழ்", te: "తెలుగు", bn: "বাংলা",
+  gu: "ગુજરાતી", kn: "ಕನ್ನಡ", ml: "മലയാളം", pa: "ਪੰਜਾਬੀ"
 };
-
-const DEFAULT_CHIPS = [
-  "How do I apply for Stand-Up India?",
-  "What documents do I need for Mudra loan?",
-  "Schemes for women entrepreneurs",
-  "PMEGP 35% subsidy details"
-];
 
 export default function SchemeChatbot({ currentLang = "en", currentScheme = null, userProfile = null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,37 +30,27 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
   const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
+    if (isOpen) messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
-  // Handle Voice Input (Speech-to-Text)
   const handleVoiceInput = () => {
     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
-      alert("Speech recognition is not supported in this browser. Please use Google Chrome.");
+      alert("Speech recognition not supported. Please use Google Chrome.");
       return;
     }
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SR();
     recognition.lang = currentLang === "en" ? "en-IN" : `${currentLang}-IN`;
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
     setIsListening(true);
     recognition.start();
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setInput((prev) => (prev ? prev + " " + transcript : transcript));
+    recognition.onresult = (e) => {
+      const t = e.results[0][0].transcript;
+      setInput((p) => (p ? p + " " + t : t));
       setIsListening(false);
     };
-
     recognition.onerror = () => setIsListening(false);
     recognition.onend = () => setIsListening(false);
   };
@@ -82,39 +58,24 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
   const handleSend = async (textToSend = null) => {
     const query = (textToSend || input).trim();
     if (!query || loading) return;
-
-    // Add user message
     const newMessages = [...messages, { sender: "user", text: query }];
     setMessages(newMessages);
     setInput("");
     setLoading(true);
-
     try {
-      const res = await sendChatMessage(
-        query,
-        currentLang,
-        currentScheme?.scheme_id || null,
-        userProfile
-      );
-
-      setMessages([
-        ...newMessages,
-        {
-          sender: "bot",
-          text: res.reply,
-          actions: res.suggested_actions || [],
-          relevantSchemes: res.relevant_schemes || []
-        }
-      ]);
-    } catch (err) {
-      setMessages([
-        ...newMessages,
-        {
-          sender: "bot",
-          text: "I am having trouble connecting to the server. Please ensure the backend is running.",
-          actions: []
-        }
-      ]);
+      const res = await sendChatMessage(query, currentLang, currentScheme?.scheme_id || null, userProfile);
+      setMessages([...newMessages, {
+        sender: "bot",
+        text: res.reply,
+        actions: res.suggested_actions || [],
+        relevantSchemes: res.relevant_schemes || []
+      }]);
+    } catch {
+      setMessages([...newMessages, {
+        sender: "bot",
+        text: "I am having trouble connecting to the server. Please ensure the backend is running.",
+        actions: []
+      }]);
     } finally {
       setLoading(false);
     }
@@ -122,13 +83,15 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
 
   return (
     <aside aria-label="SchemeSaathi AI Chatbot" className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Expanded Chat Window */}
+
+      {/* ── Chat Window ── */}
       {isOpen && (
-        <div className="mb-3 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-indigo-100 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
+        <div className="mb-3 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh] bg-white dark:bg-[#0f172a] rounded-3xl shadow-2xl border border-blue-100 dark:border-slate-700 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
+
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 px-5 py-4 text-white flex items-center justify-between shrink-0 shadow-md">
+          <div className="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-900 px-5 py-4 text-white flex items-center justify-between shrink-0 shadow-md">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-2xl bg-amber-400 text-indigo-900 flex items-center justify-center font-bold shadow-sm">
+              <div className="w-9 h-9 rounded-2xl bg-amber-400 text-blue-900 flex items-center justify-center font-bold shadow-sm">
                 <Sparkles size={18} />
               </div>
               <div>
@@ -136,7 +99,7 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
                   <h3 className="font-bold text-sm">SchemeSaathi AI</h3>
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-ping" />
                 </div>
-                <p className="text-[11px] text-indigo-200">
+                <p className="text-[11px] text-blue-200">
                   Speaking: <span className="font-semibold text-amber-300">{LANG_LABELS[currentLang] || "English"}</span>
                 </p>
               </div>
@@ -149,52 +112,44 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
             </button>
           </div>
 
-          {/* Messages list */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50 dark:bg-[#090e17]/80">
             {messages.map((m, idx) => (
-              <div
-                key={idx}
-                className={`flex gap-2.5 ${m.sender === "user" ? "justify-end" : "justify-start"}`}
-              >
+              <div key={idx} className={`flex gap-2.5 ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
                 {m.sender === "bot" && (
-                  <div className="w-7 h-7 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 text-xs mt-1">
+                  <div className="w-7 h-7 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 text-xs mt-1">
                     <Bot size={14} />
                   </div>
                 )}
-                <div
-                  className={`max-w-[82%] rounded-2xl px-4 py-3 text-xs leading-relaxed shadow-sm ${
-                    m.sender === "user"
-                      ? "bg-indigo-600 text-white rounded-br-none"
-                      : "bg-white text-gray-800 border border-gray-100 rounded-bl-none"
-                  }`}
-                >
-                  {/* Message content with line breaks */}
+                <div className={`max-w-[82%] rounded-2xl px-4 py-3 text-xs leading-relaxed shadow-sm ${
+                  m.sender === "user"
+                    ? "bg-blue-600 text-white rounded-br-none"
+                    : "bg-white dark:bg-[#0f172a] text-gray-800 dark:text-slate-200 border border-gray-100 dark:border-slate-700 rounded-bl-none"
+                }`}>
                   <div className="whitespace-pre-line">
                     {m.text.split("\n").map((line, i) => (
-                      <p key={i} className="mb-1 last:mb-0">
-                        {line}
-                      </p>
+                      <p key={i} className="mb-1 last:mb-0">{line}</p>
                     ))}
                   </div>
 
-                  {/* Speaker Button on Bot Message */}
+                  {/* Listen button on bot messages */}
                   {m.sender === "bot" && (
-                    <div className="flex items-center justify-between border-t border-gray-100 mt-2.5 pt-2">
-                      <span className="text-[10px] text-gray-400">Listen in {LANG_LABELS[currentLang]}</span>
+                    <div className="flex items-center justify-between border-t border-gray-100 dark:border-slate-700 mt-2.5 pt-2">
+                      <span className="text-[10px] text-gray-400 dark:text-slate-500">Listen in {LANG_LABELS[currentLang]}</span>
                       <VoiceOutput text={m.text} lang={currentLang} compact={true} />
                     </div>
                   )}
 
-                  {/* Relevant Scheme Portal Links */}
+                  {/* Scheme links */}
                   {m.relevantSchemes?.length > 0 && (
-                    <div className="mt-2.5 pt-2 border-t border-gray-100 space-y-1">
+                    <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-slate-700 space-y-1">
                       {m.relevantSchemes.map((rs, rIdx) => (
                         <a
                           key={rIdx}
                           href={rs.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold bg-indigo-50 px-2.5 py-1 rounded-lg mr-1.5 transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-lg mr-1.5 transition-colors"
                         >
                           {rs.name} <ExternalLink size={10} />
                         </a>
@@ -202,20 +157,14 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
                     </div>
                   )}
 
-                  {/* Quick Action Chips */}
+                  {/* Quick action chips */}
                   {m.actions?.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-1.5">
                       {m.actions.map((act, aIdx) => (
                         <button
                           key={aIdx}
-                          onClick={() => {
-                            if (act.url) {
-                              window.open(act.url, "_blank");
-                            } else if (act.action) {
-                              handleSend(act.action);
-                            }
-                          }}
-                          className="text-[10px] bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200 transition-colors flex items-center gap-1 font-medium"
+                          onClick={() => act.url ? window.open(act.url, "_blank") : handleSend(act.action)}
+                          className="text-[10px] bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800 transition-colors flex items-center gap-1 font-medium"
                         >
                           {act.label} <ArrowRight size={9} />
                         </button>
@@ -223,8 +172,9 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
                     </div>
                   )}
                 </div>
+
                 {m.sender === "user" && (
-                  <div className="w-7 h-7 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center shrink-0 text-xs mt-1">
+                  <div className="w-7 h-7 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 flex items-center justify-center shrink-0 text-xs mt-1">
                     <User size={14} />
                   </div>
                 )}
@@ -232,23 +182,23 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
             ))}
 
             {loading && (
-              <div className="flex gap-2 items-center text-xs text-gray-400 italic">
-                <Loader2 size={14} className="animate-spin text-indigo-600" />
+              <div className="flex gap-2 items-center text-xs text-gray-400 dark:text-slate-500 italic">
+                <Loader2 size={14} className="animate-spin text-blue-600" />
                 <span>SchemeSaathi is thinking in {LANG_LABELS[currentLang]}...</span>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Footer */}
-          <div className="p-3 bg-white border-t border-gray-100 flex items-center gap-2">
+          {/* Input bar */}
+          <div className="p-3 bg-white dark:bg-[#0f172a] border-t border-gray-100 dark:border-slate-700 flex items-center gap-2">
             <button
               onClick={handleVoiceInput}
               title="Speak in your language"
               className={`p-2 rounded-xl transition-all ${
                 isListening
                   ? "bg-red-500 text-white animate-pulse"
-                  : "bg-gray-100 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50"
+                  : "bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40"
               }`}
             >
               {isListening ? <MicOff size={16} /> : <Mic size={16} />}
@@ -258,13 +208,13 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              placeholder={isListening ? "Listening... Speak now" : `Ask anything in ${LANG_LABELS[currentLang]}...`}
-              className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-800 focus:outline-none focus:border-indigo-500"
+              placeholder={isListening ? "Listening… Speak now" : `Ask anything in ${LANG_LABELS[currentLang]}…`}
+              className="flex-1 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-gray-800 dark:text-slate-200 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
             />
             <button
               onClick={() => handleSend()}
               disabled={!input.trim() || loading}
-              className="p-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-40 transition-colors shadow-sm"
+              className="p-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-40 transition-colors shadow-sm"
             >
               <Send size={15} />
             </button>
@@ -272,12 +222,12 @@ export default function SchemeChatbot({ currentLang = "en", currentScheme = null
         </div>
       )}
 
-      {/* Floating Toggle Button */}
+      {/* ── Floating toggle button ── */}
       <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 hover:scale-105 text-white font-semibold text-xs px-4 py-3 rounded-full shadow-2xl transition-all border-2 border-white/40"
+        onClick={() => setIsOpen((p) => !p)}
+        className="flex items-center gap-2.5 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 hover:scale-105 text-white font-semibold text-xs px-4 py-3 rounded-full shadow-2xl shadow-blue-500/25 transition-all border-2 border-white/30"
       >
-        <div className="w-6 h-6 rounded-full bg-amber-400 text-indigo-900 flex items-center justify-center font-bold">
+        <div className="w-6 h-6 rounded-full bg-amber-400 text-blue-900 flex items-center justify-center font-bold">
           <Sparkles size={13} />
         </div>
         <span>{isOpen ? "Close Assistant" : "Ask SchemeSaathi"}</span>

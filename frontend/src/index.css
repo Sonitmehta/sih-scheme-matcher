@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Royal / Indian Government Blue Theme */
   --color-blue-50: #eff6ff;
@@ -28,19 +30,31 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.dark body {
+  background: #090e17;
+  color: #f1f5f9;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-/* Card hover (clean & professional) */
+.dark ::-webkit-scrollbar-track { background: #0f172a; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* Card hover */
 .card-hover {
   transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 .card-hover:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.05);
+}
+.dark .card-hover:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 /* Match badges */
@@ -49,6 +63,11 @@ body {
 .match-possible { background: #fef3c7; color: #92400e; border-color: #fde68a; }
 .match-low      { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
 
+.dark .match-strong   { background: #1e3a8a33; color: #93c5fd; border-color: #1e40af; }
+.dark .match-good     { background: #312e8133; color: #a5b4fc; border-color: #3730a3; }
+.dark .match-possible { background: #78350f33; color: #fde68a; border-color: #92400e; }
+.dark .match-low      { background: #1e293b;   color: #94a3b8; border-color: #334155; }
+
 /* Score bars */
 .score-bar {
   height: 6px;
@@ -56,6 +75,10 @@ body {
   background: #e2e8f0;
   overflow: hidden;
 }
+.dark .score-bar {
+  background: #1e293b;
+}
+
 .score-fill {
   height: 100%;
   border-radius: 99px;
@@ -63,12 +86,15 @@ body {
   transition: width 1s ease-in-out;
 }
 
-/* Blue gradient hero */
+/* Hero background */
 .gradient-hero {
   background: linear-gradient(160deg, #eff6ff 0%, #ffffff 60%);
 }
+.dark .gradient-hero {
+  background: linear-gradient(160deg, #0f172a 0%, #090e17 60%);
+}
 
-/* Line clamp utility */
+/* Line clamp */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;

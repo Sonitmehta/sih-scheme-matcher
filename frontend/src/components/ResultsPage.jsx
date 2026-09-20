@@ -78,20 +78,20 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
     if (!liveQuery.trim() || liveSearching) return;
     setLiveSearching(true);
     try {
-      const res = await searchLiveSchemes(liveQuery, profileData?.category || "", profileData?.state || "");
-      setLiveResults(res.results || []);
-    } catch (err) { console.error(err); }
+      const results = await searchLiveSchemes(liveQuery);
+      setLiveResults(results?.schemes || []);
+    } catch { setLiveResults([]); }
     finally { setLiveSearching(false); }
   };
 
-  // Loading state
+  // ── Loading ──
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-slate-50">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-slate-50 dark:bg-[#090e17]">
         <div className="w-14 h-14 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
         <div className="text-center">
-          <p className="text-gray-900 font-bold text-lg">Finding your eligible schemes...</p>
-          <p className="text-gray-500 text-sm mt-1">Matching against 1,000+ government databases with Sentence-BERT</p>
+          <p className="text-gray-900 dark:text-white font-bold text-lg">Finding your eligible schemes...</p>
+          <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">Matching against 1,000+ government databases with Sentence-BERT</p>
         </div>
       </div>
     );
@@ -104,38 +104,39 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
   const others = matches.filter((m) => m.match_label === "Possible Match" || m.match_label === "Low Relevance");
 
   return (
-    <div className="min-h-screen bg-slate-50/70">
+    <div className="min-h-screen bg-slate-50/70 dark:bg-[#090e17]">
+
       {/* ── Top bar ── */}
-      <div className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+      <div className="sticky top-0 z-30 bg-white dark:bg-[#0f172a] border-b border-gray-200 dark:border-slate-800 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
               onClick={onRetry}
-              className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-blue-600 font-medium transition-colors"
+              className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
             >
               <ArrowLeft size={16} /> {pUi.back}
             </button>
-            <div className="w-px h-5 bg-gray-200" />
+            <div className="w-px h-5 bg-gray-200 dark:bg-slate-700" />
             <div className="flex items-center gap-2">
               <Sparkles size={16} className="text-blue-600" />
-              <span className="font-bold text-gray-900 text-sm">
+              <span className="font-bold text-gray-900 dark:text-white text-sm">
                 {matches.length} {pUi.found}
               </span>
-              <span className="text-gray-400 text-xs hidden sm:inline">
+              <span className="text-gray-400 dark:text-slate-500 text-xs hidden sm:inline">
                 · {profileData?.category || "General"} · {profileData?.state || "All India"}
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-blue-700 font-semibold bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+            <div className="hidden sm:flex items-center gap-1.5 text-xs text-blue-700 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-950/50 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               Live Ingestion Active
             </div>
             <button
               onClick={handleSyncLive}
               disabled={syncing}
-              className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-blue-700 border border-gray-200 hover:border-blue-400 bg-white px-3.5 py-1.5 rounded-full transition-all disabled:opacity-50 shadow-sm"
+              className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 border border-gray-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 bg-white dark:bg-slate-800 px-3.5 py-1.5 rounded-full transition-all disabled:opacity-50 shadow-sm"
             >
               <RefreshCw size={12} className={syncing ? "animate-spin text-blue-600" : ""} />
               {syncing ? "Syncing..." : "Sync"}
@@ -145,25 +146,26 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 pb-32">
-        {/* ── Pipeline summary row ── */}
+
+        {/* ── Pipeline stats ── */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {[
-            { label: pUi.pool, value: matchData.pipeline_info?.total_schemes || 24, color: "text-gray-900" },
-            { label: pUi.passed, value: matchData.pipeline_info?.after_rule_filter || "–", color: "text-blue-600" },
-            { label: pUi.aiMatches, value: matches.length, color: "text-blue-700" },
+            { label: pUi.pool,      value: matchData.pipeline_info?.total_schemes || 24, color: "text-gray-900 dark:text-white" },
+            { label: pUi.passed,    value: matchData.pipeline_info?.after_rule_filter || "–", color: "text-blue-600" },
+            { label: pUi.aiMatches, value: matches.length, color: "text-blue-700 dark:text-blue-400" },
           ].map((s) => (
-            <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+            <div key={s.label} className="bg-white dark:bg-[#0f172a] rounded-xl border border-gray-200 dark:border-slate-700 p-4 text-center shadow-sm">
               <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
-              <div className="text-gray-500 text-[11px] mt-0.5 font-medium">{s.label}</div>
+              <div className="text-gray-500 dark:text-slate-400 text-[11px] mt-0.5 font-medium">{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* ── 10 Languages Selector ── */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-5">
+        {/* ── Language Selector ── */}
+        <div className="bg-white dark:bg-[#0f172a] rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm p-4 mb-5">
           <div className="flex items-center gap-2 mb-3">
             <Languages size={16} className="text-blue-600" />
-            <span className="text-xs font-bold text-gray-800">{pUi.langSelect}</span>
+            <span className="text-xs font-bold text-gray-800 dark:text-slate-200">{pUi.langSelect}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {LANGS.map((l) => (
@@ -173,7 +175,7 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
                 className={`text-xs px-3.5 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
                   lang === l.code
                     ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-105"
-                    : "bg-slate-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700 border border-gray-200"
+                    : "bg-slate-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-700 dark:hover:text-blue-400 border border-gray-200 dark:border-slate-700"
                 }`}
               >
                 <span>{l.flag}</span>
@@ -183,14 +185,14 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           </div>
         </div>
 
-        {/* ── Live search ── */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-7">
+        {/* ── Live Search ── */}
+        <div className="bg-white dark:bg-[#0f172a] rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm p-4 mb-7">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Search size={14} className="text-blue-600" />
-              <span className="text-xs font-bold text-gray-800">{pUi.searchLive}</span>
+              <span className="text-xs font-bold text-gray-800 dark:text-slate-200">{pUi.searchLive}</span>
             </div>
-            <span className="text-[10px] bg-blue-50 border border-blue-200 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold">
+            <span className="text-[10px] bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 px-2.5 py-0.5 rounded-full font-semibold">
               {pUi.liveBadge}
             </span>
           </div>
@@ -200,7 +202,7 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
               value={liveQuery}
               onChange={(e) => setLiveQuery(e.target.value)}
               placeholder="e.g. 'solar pump subsidy', 'women handicraft loan', 'drone policy'..."
-              className="flex-1 bg-slate-50 border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+              className="flex-1 bg-slate-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-full px-4 py-2 text-sm text-gray-800 dark:text-slate-200 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-slate-700 transition-colors"
             />
             <button
               type="submit"
@@ -212,24 +214,23 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
             </button>
           </form>
 
-          {/* Live results */}
           {liveResults.length > 0 && (
-            <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
+            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700 space-y-2">
               <div className="flex items-center gap-1.5 mb-2">
                 <Radio size={12} className="text-blue-500 animate-pulse" />
-                <span className="text-xs font-bold text-gray-800">Found {liveResults.length} live schemes:</span>
+                <span className="text-xs font-bold text-gray-800 dark:text-slate-200">Found {liveResults.length} live schemes:</span>
               </div>
               {liveResults.map((lr, idx) => (
-                <div key={idx} className="flex items-start justify-between gap-3 bg-blue-50/40 border border-blue-100 rounded-xl p-3">
+                <div key={idx} className="flex items-start justify-between gap-3 bg-blue-50/40 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900 rounded-xl p-3">
                   <div className="flex-1 min-w-0">
-                    <h5 className="font-bold text-gray-900 text-xs">{lr.name}</h5>
-                    <p className="text-gray-600 text-[11px] mt-0.5 line-clamp-2">{lr.benefit_description}</p>
+                    <h5 className="font-bold text-gray-900 dark:text-white text-xs">{lr.name}</h5>
+                    <p className="text-gray-600 dark:text-slate-400 text-[11px] mt-0.5 line-clamp-2">{lr.benefit_description}</p>
                   </div>
                   <a
                     href={lr.official_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 text-[11px] text-blue-600 hover:underline flex items-center gap-1 font-semibold"
+                    className="shrink-0 text-[11px] text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold"
                   >
                     View <ExternalLink size={10} />
                   </a>
@@ -239,13 +240,13 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           )}
         </div>
 
-        {/* ── Top matches ── */}
+        {/* ── Top Matches ── */}
         {strong.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp size={17} className="text-blue-600" />
-              <h2 className="font-bold text-gray-900 text-base">{pUi.topMatches}</h2>
-              <span className="bg-blue-100 text-blue-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
+              <h2 className="font-bold text-gray-900 dark:text-white text-base">{pUi.topMatches}</h2>
+              <span className="bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-xs px-2.5 py-0.5 rounded-full font-bold border border-blue-200 dark:border-blue-800">
                 {strong.length}
               </span>
             </div>
@@ -257,13 +258,13 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           </div>
         )}
 
-        {/* ── Other matches ── */}
+        {/* ── Other Matches ── */}
         {others.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <Users size={17} className="text-indigo-600" />
-              <h2 className="font-bold text-gray-900 text-base">{pUi.otherMatches}</h2>
-              <span className="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
+              <Users size={17} className="text-blue-500" />
+              <h2 className="font-bold text-gray-900 dark:text-white text-base">{pUi.otherMatches}</h2>
+              <span className="bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs px-2.5 py-0.5 rounded-full font-bold border border-blue-200 dark:border-blue-800">
                 {others.length}
               </span>
             </div>
@@ -279,14 +280,13 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
         <div className="text-center mt-10">
           <button
             onClick={onRetry}
-            className="text-sm text-gray-600 hover:text-blue-600 border border-gray-200 hover:border-blue-400 bg-white px-6 py-2.5 rounded-full font-medium transition-all shadow-sm"
+            className="text-sm text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 border border-gray-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 bg-white dark:bg-slate-800 px-6 py-2.5 rounded-full font-medium transition-all shadow-sm"
           >
             {pUi.retry}
           </button>
         </div>
       </div>
 
-      {/* Floating chatbot */}
       <SchemeChatbot currentLang={lang} currentScheme={activeSchemeForBot} userProfile={profileData} />
     </div>
   );
