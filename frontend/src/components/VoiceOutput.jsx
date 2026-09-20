@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { Volume2, Loader2, Square } from "lucide-react";
 import { getTTSAudio } from "../lib/api";
 
-// BCP-47 locale codes for Web Speech API — best match for Indian voices
 const SPEECH_LANG_MAP = {
   en: "en-IN",
   hi: "hi-IN",
@@ -16,32 +15,14 @@ const SPEECH_LANG_MAP = {
   pa: "pa-IN",
 };
 
-// Check once whether Web Speech API is available & pick the best voice per lang
-const voiceCache = {};
-function getBestVoice(langCode) {
-  if (voiceCache[langCode] !== undefined) return voiceCache[langCode];
-  const target = SPEECH_LANG_MAP[langCode] || "en-IN";
-  const voices = window.speechSynthesis?.getVoices?.() || [];
-  // Exact locale match first, then language prefix match
-  const exact = voices.find((v) => v.lang === target);
-  const prefix = voices.find((v) => v.lang.startsWith(target.split("-")[0]));
-  voiceCache[langCode] = exact || prefix || null;
-  return voiceCache[langCode];
-}
-
-// Pre-load voices (Chrome loads them async on first call)
-if (typeof window !== "undefined" && "speechSynthesis" in window) {
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.addEventListener?.("voiceschanged", () => {
-    Object.keys(voiceCache).forEach((k) => delete voiceCache[k]);
-  });
-}
+// Global audio object to prevent overlapping voices
+let currentGlobalAudio = null;
 
 export default function VoiceOutput({ text, lang = "en", label, compact = false }) {
   const [loading, setLoading] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef(null);
-  const blobUrlCache = useRef({}); // cache blob URLs from backend (fallback only)
+  const blobUrlCache = useRef({});
 
   // Stop playback whenever text or lang changes
   useEffect(() => {
@@ -50,16 +31,63 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
 
   const handleStop = () => {
     if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+      try {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      } catch (e) {}
       audioRef.current = null;
     }
-    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    if (currentGlobalAudio) {
+      try {
+        currentGlobalAudio.pause();
+        currentGlobalAudio.currentTime = 0;
+      } catch (e) {}
+      currentGlobalAudio = null;
+    }
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
     setPlaying(false);
     setLoading(false);
   };
 
-  // PRIMARY: instant browser Web Speech synthesis
+  // 1. PRIMARY ENGINE: High-Fidelity Google Native Voice (Authentic Regional Accents)
+  const speakWithBackend = async (speechText) => {
+    const cacheKey = `${speechText}_${lang}`;
+    let url = blobUrlCache.current[cacheKey];
+    if (!url) {
+      url = await getTTSAudio(speechText, lang);
+      blobUrlCache.current[cacheKey] = url;
+    }
+    return new Promise((resolve, reject) => {
+      // Stop any other currently playing audio
+      if (currentGlobalAudio) {
+        try { currentGlobalAudio.pause(); } catch (e) {}
+      }
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      currentGlobalAudio = audio;
+
+      audio.onplay = () => {
+        setLoading(false);
+        setPlaying(true);
+      };
+      audio.onended = () => {
+        setPlaying(false);
+        audioRef.current = null;
+        currentGlobalAudio = null;
+        resolve();
+      };
+      audio.onerror = (e) => {
+        setPlaying(false);
+        currentGlobalAudio = null;
+        reject(e);
+      };
+      audio.play().catch(reject);
+    });
+  };
+
+  // 2. FALLBACK ENGINE: Browser Web Speech API
   const speakWithBrowser = (speechText) => {
     return new Promise((resolve, reject) => {
       if (!("speechSynthesis" in window)) {
@@ -70,11 +98,16 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
 
       const utterance = new SpeechSynthesisUtterance(speechText);
       utterance.lang = SPEECH_LANG_MAP[lang] || "en-IN";
-      utterance.rate = 0.92;
+      utterance.rate = 0.95;
       utterance.pitch = 1.0;
 
-      const voice = getBestVoice(lang);
-      if (voice) utterance.voice = voice;
+      // Check if browser has a native voice for this language
+      const voices = window.speechSynthesis.getVoices() || [];
+      const prefix = (SPEECH_LANG_MAP[lang] || "en").split("-")[0].toLowerCase();
+      const matchedVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(prefix));
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
 
       utterance.onstart = () => {
         setLoading(false);
@@ -90,51 +123,29 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
       };
 
       window.speechSynthesis.speak(utterance);
-
-      // Chrome bug: speech sometimes silently stops after ~15s on long text
-      // Workaround: resume if paused
-      const keepAlive = setInterval(() => {
-        if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-        if (!window.speechSynthesis.speaking) clearInterval(keepAlive);
-      }, 5000);
-      utterance.onend = () => { clearInterval(keepAlive); setPlaying(false); resolve(); };
-    });
-  };
-
-  // FALLBACK: backend gTTS (only when browser speech is unavailable/fails)
-  const speakWithBackend = async (speechText) => {
-    const cacheKey = `${speechText}_${lang}`;
-    let url = blobUrlCache.current[cacheKey];
-    if (!url) {
-      url = await getTTSAudio(speechText, lang);
-      blobUrlCache.current[cacheKey] = url;
-    }
-    return new Promise((resolve, reject) => {
-      const audio = new Audio(url);
-      audioRef.current = audio;
-      audio.onplay = () => { setLoading(false); setPlaying(true); };
-      audio.onended = () => { setPlaying(false); audioRef.current = null; resolve(); };
-      audio.onerror = (e) => { setPlaying(false); reject(e); };
-      audio.play().catch(reject);
     });
   };
 
   const handlePlay = async () => {
-    if (playing) { handleStop(); return; }
+    if (playing) {
+      handleStop();
+      return;
+    }
     if (!text?.trim()) return;
 
+    handleStop();
     setLoading(true);
-    const cleanText = text.replace(/[*#_`[\]]/g, "").trim().slice(0, 500);
+    const cleanText = text.replace(/[*#_`[\]()~]/g, " ").replace(/\s+/g, " ").trim().slice(0, 450);
 
     try {
-      // Try instant browser TTS first
-      await speakWithBrowser(cleanText);
+      // Primary: High-fidelity authentic Google regional accent
+      await speakWithBackend(cleanText);
     } catch (err) {
-      console.warn("[VoiceOutput] Browser TTS unavailable, using backend gTTS:", err?.message);
+      console.warn("[VoiceOutput] Backend voice failed, attempting browser speech fallback:", err);
       try {
-        await speakWithBackend(cleanText);
-      } catch (backendErr) {
-        console.error("[VoiceOutput] Both TTS methods failed:", backendErr);
+        await speakWithBrowser(cleanText);
+      } catch (browserErr) {
+        console.error("[VoiceOutput] Both voice engines failed:", browserErr);
         setLoading(false);
         setPlaying(false);
       }
@@ -149,14 +160,14 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
         title={playing ? "Stop voice" : `Listen in ${lang.toUpperCase()}`}
         className={`p-1.5 rounded-lg transition-all flex items-center justify-center ${
           playing
-            ? "bg-amber-100 text-amber-800 animate-pulse border border-amber-300"
-            : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 border border-transparent"
+            ? "bg-green-100 text-green-800 animate-pulse border border-green-300"
+            : "text-gray-400 hover:text-green-700 hover:bg-green-50 border border-transparent"
         }`}
       >
         {loading ? (
-          <Loader2 size={14} className="animate-spin text-indigo-600" />
+          <Loader2 size={14} className="animate-spin text-green-600" />
         ) : playing ? (
-          <Square size={13} className="fill-current text-amber-700" />
+          <Square size={13} className="fill-current text-green-800" />
         ) : (
           <Volume2 size={14} />
         )}
@@ -168,21 +179,21 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
     <button
       onClick={handlePlay}
       disabled={loading}
-      className={`flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-xl border transition-all ${
+      className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
         playing
-          ? "bg-amber-500 text-white border-amber-600 shadow-sm"
-          : "text-indigo-700 hover:text-indigo-900 border-indigo-200 hover:border-indigo-400 bg-indigo-50/80 hover:bg-indigo-100"
+          ? "bg-green-700 text-white border-green-800 shadow-sm animate-pulse"
+          : "text-green-700 hover:text-green-900 border-green-200 hover:border-green-400 bg-green-50 hover:bg-green-100"
       } disabled:opacity-50`}
       title={`Listen in ${lang.toUpperCase()}`}
     >
       {loading ? (
-        <Loader2 size={13} className="animate-spin" />
+        <Loader2 size={13} className="animate-spin text-green-700" />
       ) : playing ? (
         <Square size={12} className="fill-current" />
       ) : (
         <Volume2 size={13} />
       )}
-      <span>{loading ? "Loading..." : playing ? "Stop" : label || "▶ Listen"}</span>
+      <span>{loading ? "Loading Voice..." : playing ? "Stop" : label || "▶ Listen"}</span>
     </button>
   );
 }

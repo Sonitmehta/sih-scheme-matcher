@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Languages, Sparkles, TrendingUp, Users, ArrowLeft,
-  Radio, RefreshCw, Search, Loader2, ExternalLink, Globe2, ChevronRight
+  Radio, RefreshCw, Search, Loader2, ExternalLink
 } from "lucide-react";
 import SchemeCard from "./SchemeCard";
 import SchemeChatbot from "./SchemeChatbot";
@@ -21,6 +21,19 @@ const LANGS = [
   { code: "pa", label: "Punjabi",   native: "ਪੰਜਾਬੀ",    flag: "🟨" },
 ];
 
+const PAGE_UI = {
+  en: { back: "Back", found: "Eligible Schemes Found", langSelect: "Choose Language for Text & Native Voice (10 Languages):", searchLive: "Search any government scheme live in real time:", searchBtn: "Search", searching: "Searching...", topMatches: "Best Matching Schemes", otherMatches: "Also Worth Exploring", retry: "↺ Search with a Different Profile", liveBadge: "Live from myscheme.gov.in", pool: "Total Schemes in Pool", passed: "Passed Rule Filter", aiMatches: "AI Ranked Matches" },
+  hi: { back: "वापस", found: "पात्र सरकारी योजनाएं मिलीं", langSelect: "पाठ और मूल आवाज़ हेतु भाषा चुनें (10 भाषाएँ):", searchLive: "वास्तविक समय में किसी भी सरकारी योजना को खोजें:", searchBtn: "खोजें", searching: "खोज रहे हैं...", topMatches: "सर्वोत्तम अनुशंसित योजनाएं", otherMatches: "अन्य उपयोगी योजनाएं", retry: "↺ भिन्न प्रोफ़ाइल के साथ खोजें", liveBadge: "myscheme.gov.in से लाइव", pool: "कुल योजनाएं", passed: "पात्रता उत्तीर्ण", aiMatches: "AI अनुशंसित" },
+  mr: { back: "मागे", found: "पात्र सरकारी योजना मिळाल्या", langSelect: "मजकूर आणि मूळ आवाजासाठी भाषा निवडा (10 भाषा):", searchLive: "रिअल-टाइममध्ये कोणतीही सरकारी योजना शोधा:", searchBtn: "शोधा", searching: "शोधत आहे...", topMatches: "सर्वोत्तम शिफारस केलेल्या योजना", otherMatches: "इतर उपयुक्त योजना", retry: "↺ वेगळ्या प्रोफाइलसह शोधा", liveBadge: "myscheme.gov.in वरून थेट", pool: "एकूण योजना", passed: "पात्रता उत्तीर्ण", aiMatches: "AI शिफारस" },
+  ta: { back: "பின்செல்", found: "தகுதியான அரசுத் திட்டங்கள் கிடைத்தன", langSelect: "உரை மற்றும் குரலுக்கான மொழியைத் தேர்ந்தெடுக்கவும் (10 மொழிகள்):", searchLive: "அரசுத் திட்டங்களை நிகழ்நேரத்தில் தேடுங்கள்:", searchBtn: "தேடு", searching: "தேடுகிறது...", topMatches: "மிகவும் பொருத்தமான திட்டங்கள்", otherMatches: "பிற பயனுள்ள திட்டங்கள்", retry: "↺ வேறு விவரக்குறிப்புடன் தேடவும்", liveBadge: "myscheme.gov.in நேரலை", pool: "மொத்த திட்டங்கள்", passed: "தகுதி பெற்றது", aiMatches: "AI தரவரிசை" },
+  te: { back: "వెనుకకు", found: "అర్హత కలిగిన ప్రభుత్వ పథకాలు లభించాయి", langSelect: "వచనం మరియు వాయిస్ కోసం భాషను ఎంచుకోండి (10 భాషలు):", searchLive: "రియల్ టైమ్‌లో ఏదైనా ప్రభుత్వ పథకాన్ని శోధించండి:", searchBtn: "శోధించండి", searching: "శోధిస్తోంది...", topMatches: "ఉత్తమ సిఫార్సు పథకాలు", otherMatches: "ఇతర ఉపయోగకరమైన పథకాలు", retry: "↺ వేరే ప్రొఫైల్‌తో శోధించండి", liveBadge: "myscheme.gov.in నుండి లైవ్", pool: "మొత్తం పథకాలు", passed: "అర్హత సాధించినవి", aiMatches: "AI ర్యాంక్ పథకాలు" },
+  bn: { back: "ফিরে যান", found: "যোগ্য সরকারি প্রকল্প পাওয়া গেছে", langSelect: "পাঠ্য ও কণ্ঠের জন্য ভাষা নির্বাচন করুন (১০টি ভাষা):", searchLive: "রিয়েল-টাইমে যেকোনো সরকারি স্কিম অনুসন্ধান করুন:", searchBtn: "অনুসন্ধান", searching: "অনুসন্ধান করা হচ্ছে...", topMatches: "সর্বোত্তম প্রস্তাবিত প্রকল্প", otherMatches: "অন্যান্য কার্যকর প্রকল্প", retry: "↺ অন্য প্রোফাইল দিয়ে অনুসন্ধান করুন", liveBadge: "myscheme.gov.in থেকে লাইভ", pool: "মোট প্রকল্প", passed: "যোগ্যতা উত্তীর্ণ", aiMatches: "AI প্রস্তাবিত" },
+  gu: { back: "પાછા જાઓ", found: "પાત્ર સરકારી યોજનાઓ મળી", langSelect: "ટેક્સ્ટ અને અવાજ માટે ભાષા પસંદ કરો (10 ભાષાઓ):", searchLive: "વાસ્તવિક સમયમાં કોઈપણ સરકારી યોજના શોધો:", searchBtn: "શોધો", searching: "શોધી રહ્યું છે...", topMatches: "શ્રેષ્ઠ ભલામણ કરેલ યોજનાઓ", otherMatches: "અન્ય ઉપયોગી યોજનાઓ", retry: "↺ અલગ પ્રોફાઇલ સાથે શોધો", liveBadge: "myscheme.gov.in થી લાઇવ", pool: "કુલ યોજનાઓ", passed: "પાત્રતા પાસ", aiMatches: "AI ક્રમાંકિત" },
+  kn: { back: "ಹಿಂದೆ", found: "ಅರ್ಹ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ದೊರೆತಿವೆ", langSelect: "ಪಠ್ಯ ಮತ್ತು ಧ್ವನಿಗಾಗಿ ಭಾಷೆಯನ್ನು ಆರಿಸಿ (10 ಭಾಷೆಗಳು):", searchLive: "ನೈಜ ಸಮಯದಲ್ಲಿ ಯಾವುದೇ ಸರ್ಕಾರಿ ಯೋಜನೆಯನ್ನು ಹುಡುಕಿ:", searchBtn: "ಹುಡುಕಿ", searching: "ಹುಡುಕಲಾಗುತ್ತಿದೆ...", topMatches: "ಅತ್ಯುತ್ತಮ ಹೊಂದಾಣಿಕೆಯ ಯೋಜನೆಗಳು", otherMatches: "ಇತರ ಉಪಯುಕ್ತ ಯೋಜನೆಗಳು", retry: "↺ ಬೇರೆ ಪ್ರೊಫೈಲ್‌ನೊಂದಿಗೆ ಹುಡುಕಿ", liveBadge: "myscheme.gov.in ಲೈವ್", pool: "ಒಟ್ಟು ಯೋಜನೆಗಳು", passed: "ಅರ್ಹತೆ ಪಡೆದವು", aiMatches: "AI ಶ್ರೇಯಾಂಕ" },
+  ml: { back: "പിന്നോട്ട്", found: "അർഹമായ സർക്കാർ പദ്ധതികൾ കണ്ടെത്തി", langSelect: "ടെക്സ്റ്റിനും ശബ്ദത്തിനുമായി ഭാഷ തിരഞ്ഞെടുക്കുക (10 ഭാഷകൾ):", searchLive: "ഏതൊരു സർക്കാർ പദ്ധതിയും തത്സമയം തിരയുക:", searchBtn: "തിരയുക", searching: "തിരയുന്നു...", topMatches: "ഏറ്റവും അനുയോജ്യമായ പദ്ധതികൾ", otherMatches: "മറ്റ് ഉപയോഗപ്രദമായ പദ്ധതികൾ", retry: "↺ മറ്റൊരു പ്രൊഫൈൽ ഉപയോഗിച്ച് തിരയുക", liveBadge: "myscheme.gov.in ലൈവ്", pool: "ആകെ പദ്ധതികൾ", passed: "യോഗ്യത നേടിയത്", aiMatches: "AI റാങ്കിംഗ്" },
+  pa: { back: "ਵਾਪਸ", found: "ਯੋਗ ਸਰਕਾਰੀ ਸਕੀਮਾਂ ਮਿਲੀਆਂ", langSelect: "ਟੈਕਸਟ ਅਤੇ ਆਵਾਜ਼ ਲਈ ਭਾਸ਼ਾ ਚੁਣੋ (10 ਭਾਸ਼ਾਵਾਂ):", searchLive: "ਰੀਅਲ ਟਾਈਮ ਵਿੱਚ ਕੋਈ ਵੀ ਸਰਕਾਰੀ ਸਕੀਮ ਖੋਜੋ:", searchBtn: "ਖੋਜੋ", searching: "ਖੋਜ ਰਿਹਾ ਹੈ...", topMatches: "ਸਭ ਤੋਂ ਵਧੀਆ ਸਿਫ਼ਾਰਿਸ਼ ਕੀਤੀਆਂ ਸਕੀਮਾਂ", otherMatches: "ਹੋਰ ਲਾਭਦਾਇਕ ਸਕੀਮਾਂ", retry: "↺ ਵੱਖਰੇ ਪ੍ਰੋਫਾਈਲ ਨਾਲ ਦੁਬਾਰਾ ਖੋਜੋ", liveBadge: "myscheme.gov.in ਤੋਂ ਲਾਈਵ", pool: "ਕੁੱਲ ਸਕੀਮਾਂ", passed: "ਯੋਗਤਾ ਪਾਸ", aiMatches: "AI ਦਰਜਾਬੰਦੀ" }
+};
+
 export default function ResultsPage({ matchData: initialData, profileData, onRetry }) {
   const [lang, setLang] = useState("en");
   const [matchData, setMatchData] = useState(initialData);
@@ -30,6 +43,8 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
   const [liveQuery, setLiveQuery] = useState("");
   const [liveSearching, setLiveSearching] = useState(false);
   const [liveResults, setLiveResults] = useState([]);
+
+  const pUi = PAGE_UI[lang] || PAGE_UI.en;
 
   useEffect(() => {
     if (!initialData && profileData) {
@@ -87,7 +102,6 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
   const matches = matchData.matches || [];
   const strong = matches.filter((m) => m.match_label === "Strong Match" || m.match_label === "Good Match");
   const others = matches.filter((m) => m.match_label === "Possible Match" || m.match_label === "Low Relevance");
-  const currentLang = LANGS.find((l) => l.code === lang);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -99,13 +113,13 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
               onClick={onRetry}
               className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors"
             >
-              <ArrowLeft size={16} /> Back
+              <ArrowLeft size={16} /> {pUi.back}
             </button>
             <div className="w-px h-5 bg-gray-200" />
             <div className="flex items-center gap-2">
               <Sparkles size={16} className="text-green-600" />
               <span className="font-bold text-gray-900 text-sm">
-                {matches.length} Schemes Found
+                {matches.length} {pUi.found}
               </span>
               <span className="text-gray-400 text-xs hidden sm:inline">
                 · {profileData?.category || "General"} · {profileData?.state || "All India"}
@@ -114,7 +128,6 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Live sync */}
             <div className="hidden sm:flex items-center gap-1.5 text-xs text-emerald-700 font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Live data
@@ -135,35 +148,36 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
         {/* ── Pipeline summary row ── */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {[
-            { label: "Total Schemes in Pool", value: matchData.pipeline_info?.total_schemes || 25, color: "text-gray-800" },
-            { label: "Passed Rule Filter",    value: matchData.pipeline_info?.after_rule_filter || "–", color: "text-blue-600" },
-            { label: "AI Ranked Matches",     value: matches.length, color: "text-green-700" },
+            { label: pUi.pool, value: matchData.pipeline_info?.total_schemes || 24, color: "text-gray-800" },
+            { label: pUi.passed, value: matchData.pipeline_info?.after_rule_filter || "–", color: "text-blue-600" },
+            { label: pUi.aiMatches, value: matches.length, color: "text-green-700" },
           ].map((s) => (
             <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
               <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
-              <div className="text-gray-500 text-[11px] mt-0.5">{s.label}</div>
+              <div className="text-gray-500 text-[11px] mt-0.5 font-medium">{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* ── Language selector ── */}
+        {/* ── 10 Languages Selector ── */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-5">
           <div className="flex items-center gap-2 mb-3">
             <Languages size={16} className="text-green-600" />
-            <span className="text-xs font-bold text-gray-700">Language for Text & Voice:</span>
+            <span className="text-xs font-bold text-gray-700">{pUi.langSelect}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {LANGS.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
-                className={`text-xs px-3.5 py-1.5 rounded-full font-semibold transition-all ${
+                className={`text-xs px-3.5 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
                   lang === l.code
-                    ? "bg-green-700 text-white shadow-sm"
-                    : "bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700 border border-gray-200"
+                    ? "bg-green-700 text-white shadow-sm scale-105"
+                    : "bg-gray-100 text-gray-700 hover:bg-green-50 hover:text-green-700 border border-gray-200"
                 }`}
               >
-                {l.native}
+                <span>{l.flag}</span>
+                <span>{l.native}</span>
               </button>
             ))}
           </div>
@@ -174,10 +188,10 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Search size={14} className="text-gray-400" />
-              <span className="text-xs font-bold text-gray-700">Search any government scheme live:</span>
+              <span className="text-xs font-bold text-gray-700">{pUi.searchLive}</span>
             </div>
             <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">
-              Live from myscheme.gov.in
+              {pUi.liveBadge}
             </span>
           </div>
           <form onSubmit={handleLiveSearch} className="flex gap-2">
@@ -194,7 +208,7 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
               className="bg-green-700 hover:bg-green-800 text-white text-xs font-bold px-5 py-2 rounded-full transition-colors disabled:opacity-50 flex items-center gap-1.5"
             >
               {liveSearching ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />}
-              {liveSearching ? "Searching..." : "Search"}
+              {liveSearching ? pUi.searching : pUi.searchBtn}
             </button>
           </form>
 
@@ -230,7 +244,7 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp size={17} className="text-green-600" />
-              <h2 className="font-bold text-gray-900 text-base">Best Matching Schemes</h2>
+              <h2 className="font-bold text-gray-900 text-base">{pUi.topMatches}</h2>
               <span className="bg-green-100 text-green-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
                 {strong.length}
               </span>
@@ -248,7 +262,7 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
               <Users size={17} className="text-amber-600" />
-              <h2 className="font-bold text-gray-900 text-base">Also Worth Exploring</h2>
+              <h2 className="font-bold text-gray-900 text-base">{pUi.otherMatches}</h2>
               <span className="bg-amber-100 text-amber-700 text-xs px-2.5 py-0.5 rounded-full font-bold">
                 {others.length}
               </span>
@@ -267,7 +281,7 @@ export default function ResultsPage({ matchData: initialData, profileData, onRet
             onClick={onRetry}
             className="text-sm text-gray-600 hover:text-green-700 border border-gray-200 hover:border-green-400 bg-white px-6 py-2.5 rounded-full font-medium transition-all shadow-sm"
           >
-            ↺ Search with a Different Profile
+            {pUi.retry}
           </button>
         </div>
       </div>

@@ -278,7 +278,11 @@ async def search_live_sources(query: str, category: Optional[str] = None, state:
     Fast on-demand search: checks in-memory TTL cache first (sub-5ms),
     then queries myscheme.gov.in or falls back to DuckDuckGo.
     """
-    cache_key = f"{query.strip().lower()}_{category or ''}_{state or ''}"
+    if not isinstance(category, str):
+        category = ""
+    if not isinstance(state, str):
+        state = ""
+    cache_key = f"{query.strip().lower()}_{category}_{state}"
     now = time.time()
 
     # Check TTL query cache
