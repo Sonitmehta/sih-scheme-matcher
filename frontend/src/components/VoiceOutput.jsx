@@ -60,7 +60,6 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
       blobUrlCache.current[cacheKey] = url;
     }
     return new Promise((resolve, reject) => {
-      // Stop any other currently playing audio
       if (currentGlobalAudio) {
         try { currentGlobalAudio.pause(); } catch (e) {}
       }
@@ -101,7 +100,6 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
       utterance.rate = 0.95;
       utterance.pitch = 1.0;
 
-      // Check if browser has a native voice for this language
       const voices = window.speechSynthesis.getVoices() || [];
       const prefix = (SPEECH_LANG_MAP[lang] || "en").split("-")[0].toLowerCase();
       const matchedVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(prefix));
@@ -138,7 +136,6 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
     const cleanText = text.replace(/[*#_`[\]()~]/g, " ").replace(/\s+/g, " ").trim().slice(0, 450);
 
     try {
-      // Primary: High-fidelity authentic Google regional accent
       await speakWithBackend(cleanText);
     } catch (err) {
       console.warn("[VoiceOutput] Backend voice failed, attempting browser speech fallback:", err);
@@ -160,14 +157,14 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
         title={playing ? "Stop voice" : `Listen in ${lang.toUpperCase()}`}
         className={`p-1.5 rounded-lg transition-all flex items-center justify-center ${
           playing
-            ? "bg-green-100 text-green-800 animate-pulse border border-green-300"
-            : "text-gray-400 hover:text-green-700 hover:bg-green-50 border border-transparent"
+            ? "bg-blue-100 text-blue-800 animate-pulse border border-blue-300"
+            : "text-gray-400 hover:text-blue-600 hover:bg-blue-50 border border-transparent"
         }`}
       >
         {loading ? (
-          <Loader2 size={14} className="animate-spin text-green-600" />
+          <Loader2 size={14} className="animate-spin text-blue-600" />
         ) : playing ? (
-          <Square size={13} className="fill-current text-green-800" />
+          <Square size={13} className="fill-current text-blue-800" />
         ) : (
           <Volume2 size={14} />
         )}
@@ -181,13 +178,13 @@ export default function VoiceOutput({ text, lang = "en", label, compact = false 
       disabled={loading}
       className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
         playing
-          ? "bg-green-700 text-white border-green-800 shadow-sm animate-pulse"
-          : "text-green-700 hover:text-green-900 border-green-200 hover:border-green-400 bg-green-50 hover:bg-green-100"
+          ? "bg-blue-600 text-white border-blue-700 shadow-sm animate-pulse"
+          : "text-blue-700 hover:text-blue-900 border-blue-200 hover:border-blue-400 bg-blue-50 hover:bg-blue-100"
       } disabled:opacity-50`}
       title={`Listen in ${lang.toUpperCase()}`}
     >
       {loading ? (
-        <Loader2 size={13} className="animate-spin text-green-700" />
+        <Loader2 size={13} className="animate-spin text-blue-600" />
       ) : playing ? (
         <Square size={12} className="fill-current" />
       ) : (

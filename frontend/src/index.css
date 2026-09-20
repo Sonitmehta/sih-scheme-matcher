@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* India flag colors */
-  --color-india-green: #16A34A;
-  --color-india-saffron: #FF9933;
+  /* Royal / Indian Government Blue Theme */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
 
-  /* Green primary (myscheme.gov.in inspired) */
-  --color-green-50: #f0fdf4;
-  --color-green-100: #dcfce7;
-  --color-green-200: #bbf7d0;
-  --color-green-300: #86efac;
-  --color-green-500: #22c55e;
-  --color-green-600: #16a34a;
-  --color-green-700: #15803d;
-  --color-green-800: #166534;
+  --color-india-saffron: #FF9933;
+  --color-india-green: #138808;
 
   --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -22,8 +23,8 @@
 * { box-sizing: border-box; }
 body {
   font-family: var(--font-family-sans);
-  background: #f9fafb;
-  color: #111827;
+  background: #f8fafc;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -33,43 +34,38 @@ body {
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-/* Card hover (subtle — consistent with gov portal feel) */
+/* Card hover (clean & professional) */
 .card-hover {
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.05);
 }
 
 /* Match badges */
-.match-strong   { background: #dcfce7; color: #14532d; border-color: #86efac; }
-.match-good     { background: #dbeafe; color: #1e3a5f; border-color: #93c5fd; }
-.match-possible { background: #fef9c3; color: #713f12; border-color: #fde047; }
-.match-low      { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
+.match-strong   { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+.match-good     { background: #e0e7ff; color: #3730a3; border-color: #a5b4fc; }
+.match-possible { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+.match-low      { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
 
 /* Score bars */
 .score-bar {
   height: 6px;
   border-radius: 99px;
-  background: #e5e7eb;
+  background: #e2e8f0;
   overflow: hidden;
 }
 .score-fill {
   height: 100%;
   border-radius: 99px;
-  background: linear-gradient(90deg, #16a34a, #22c55e);
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
   transition: width 1s ease-in-out;
 }
 
-/* Green gradient hero */
+/* Blue gradient hero */
 .gradient-hero {
-  background: linear-gradient(160deg, #f0fdf4 0%, #ffffff 60%);
-}
-
-/* India flag gradient */
-.gradient-india {
-  background: linear-gradient(135deg, #FF9933 0%, #ffffff 40%, #138808 100%);
+  background: linear-gradient(160deg, #eff6ff 0%, #ffffff 60%);
 }
 
 /* Line clamp utility */
